@@ -16,8 +16,6 @@ app.use(
 );
 
 
-
-
 app.use("/user", userRouter);
 app.get("/", homePageController); // Display home page
 app.use(eventRouter);

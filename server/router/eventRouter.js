@@ -15,3 +15,6 @@ router.get("/events/search/city/:city", eventController.searchByCity);
 
 module.exports = router;
 
+
+
+
