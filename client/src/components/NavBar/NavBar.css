@@ -1,0 +1,9 @@
+
+.login {
+  margin-right: 10px;
+  }
+  
+  .signup {
+    margin-right: -100px; /* Adjust this value as needed to create space between LogIn and SignUp links */
+  }
+  
