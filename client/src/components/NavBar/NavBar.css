@@ -1,9 +1,35 @@
 
-.login {
-  margin-right: 10px;
-  }
-  
-  .signup {
-    margin-right: -100px; /* Adjust this value as needed to create space between LogIn and SignUp links */
-  }
-  
+.account {
+  margin-right: -200px;
+  margin-left: 10px;
+}
+
+.custom-bg {
+  background-color: rgb(38, 38, 38);
+}
+
+
+.custom-bg .nav-link,
+.custom-bg .btn {
+  color: white; /* Set the desired color here */
+}
+.custom-bg .dropdown-item{
+  color: black;
+}
+
+.custom-bg .nav-link:hover {
+  color: purple; /* Set the color for the nav links on hover */
+}
+
+.custom-bg .navbar-brand {
+  color: purple;
+  font-size: 20px;
+} 
+.custom-bg .nav-link:hover {
+  color: purple;
+}
+.custom-bg .d-flex.expanded .form-control {
+  flex: 1;
+  max-width: 300px;
+  transition: max-width 0.3s ease;
+}
