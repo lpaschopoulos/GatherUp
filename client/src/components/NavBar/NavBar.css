@@ -1,4 +1,6 @@
+.gatherup-link{
 
+}
 .account {
   margin-right: -200px;
   margin-left: 10px;
@@ -22,8 +24,15 @@
 }
 
 .custom-bg .navbar-brand {
-  color: purple;
-  font-size: 20px;
+  --stroke-color:purple;
+  --stroke-width:1px;
+  color:white;
+  text-shadow: var(--stroke-width)  3px 0 var(--stroke-color),
+    calc(var(--stroke-width) * -1) 3px 3px var(--stroke-color),
+    0 var(--stroke-width) 3px var(--stroke-color),
+    0 calc(var(--stroke-width) * -3) 3px var(--stroke-color);
+
+  font-size: 22px;
 } 
 .custom-bg .nav-link:hover {
   color: purple;

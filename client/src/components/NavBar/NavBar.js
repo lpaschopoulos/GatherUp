@@ -6,19 +6,24 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
+
 import './NavBar.css';
 
 function NavBar() {
+  var navigate = useNavigate();
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
-
   const handleSearchClick = () => {
     setIsSearchExpanded(!isSearchExpanded);
+  };
+  const handleAccount = () => {
+    navigate ("/account");
   };
 
   return (
     <Navbar collapseOnSelect expand="lg" className="custom-bg">
       <Container>
-        <Navbar.Brand href="#home" className="gatherup-link">
+        <Navbar.Brand href="/" className="gatherup-link">
           GatherUp
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -56,7 +61,7 @@ function NavBar() {
             )}
           </Form>
           <Nav className="ml-auto">
-            <Button variant="outline-primary" className="account">
+            <Button variant="outline-primary" className="account" onClick={handleAccount}>
               Account
             </Button>
           </Nav>
