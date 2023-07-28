@@ -1,5 +1,6 @@
 .gatherup-link{
-
+  text-shadow: 3px 2px 3px purple, 0 0 2em purple, 0 0 0.2em purple;
+  font-weight: 600;
 }
 .account {
   margin-right: -200px;
@@ -24,13 +25,6 @@
 }
 
 .custom-bg .navbar-brand {
-  --stroke-color:purple;
-  --stroke-width:1px;
-  color:white;
-  text-shadow: var(--stroke-width)  3px 0 var(--stroke-color),
-    calc(var(--stroke-width) * -1) 3px 3px var(--stroke-color),
-    0 var(--stroke-width) 3px var(--stroke-color),
-    0 calc(var(--stroke-width) * -3) 3px var(--stroke-color);
 
   font-size: 22px;
 } 

@@ -17,3 +17,10 @@ body {
     font-size: 40px;
     color: purple;
   }
+
+  .loginbtn {
+    padding: 8px 20px; /* Adjust the padding to your desired size */
+    size: fixed;
+    margin-bottom: 30px;
+    max-height: 48px;
+  }

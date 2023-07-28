@@ -16,8 +16,8 @@ function NavBar() {
   const handleSearchClick = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
-  const handleAccount = () => {
-    navigate ("/account");
+  const handleLogin = () => {
+    navigate ("/login");
   };
 
   return (
@@ -61,7 +61,7 @@ function NavBar() {
             )}
           </Form>
           <Nav className="ml-auto">
-            <Button variant="outline-primary" className="account" onClick={handleAccount}>
+            <Button variant="outline-primary" className="account" onClick={handleLogin}>
               Account
             </Button>
           </Nav>
