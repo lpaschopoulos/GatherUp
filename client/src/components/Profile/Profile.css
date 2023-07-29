@@ -56,3 +56,7 @@
     padding: 20px;
   }
   
+  .user-info {
+    margin-left: 140px; /* Adjust this value according to your layout */
+    /* Add any other styling for the user info container if needed */
+  }

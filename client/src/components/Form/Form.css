@@ -1,0 +1,67 @@
+.formContainer {
+    width: 600px;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 50px;
+    margin: 0 auto;
+    text-align: left; /* Add text-align to left-align the form */
+  }
+  
+  .containerContent {
+    position: relative;
+    z-index: 10;
+  }
+  
+  #formTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .formInput-group {
+    margin-bottom: 20px;
+    text-align: left; /* Add text-align to left-align the labels and inputs */
+    color: white;
+  }
+  
+  .formInput-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .formInput-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .submitBtn-wrap {
+    text-align: center;
+  }
+  
+  #submitButton {
+    background-color: #a536ff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .formInput-group.description {
+    margin-bottom: 20px;
+    text-align: left; /* Add text-align to left-align the labels and inputs */
+  }
+  .formInput-group.description label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .formInput-group.description textarea {
+    width: 100%; /* Set the textarea width to 100% to make it wider */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

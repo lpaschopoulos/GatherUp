@@ -1,5 +1,5 @@
 .gatherup-link{
-  text-shadow: 3px 2px 3px purple, 0 0 2em purple, 0 0 0.2em purple;
+  text-shadow: 3px 2px 3px purple, 0 0 2em rgb(235, 230, 235), 0 0 0.2em rgb(206, 203, 206);
   font-weight: 600;
 }
 .account {
