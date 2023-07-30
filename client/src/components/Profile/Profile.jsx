@@ -7,7 +7,7 @@ import CardsProfile from "../CardsProfile/CardsProfile";
 
 function Profile() {
   const navigate = useNavigate();
-
+  const [events, setEvents] = useState([]);
   const [user, setUser] = useState({
     _id: "",
     username: "",
