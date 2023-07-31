@@ -22,32 +22,33 @@ function Form({ addNewEvent }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", eventImage);
   
-    try {
-      const imageResponse = await axios.post("http://localhost:3636/uploads", formData);
-      //setEventImage(imageResponse.data.data.secure_url);
-      console.log("Image Upload Response:", imageResponse.data);
-      const secureUrl = imageResponse.data.data.secure_url;
+    if (eventImage) {
+      // Image is uploaded, proceed with form submission
+      const formData = new FormData();
+      formData.append("image", eventImage);
   
-      const eventData = {
-        title: eventName,
-        date: eventDate,
-        location: eventLocation,
-        city: eventCity,
-        ticketPrice,
-        description: eventDescription,
-        tags: eventTags.split(",").map((tag) => tag.trim()),
-        image: secureUrl,
-      };
+      try {
+        // Upload the image to Cloudinary
+        const response = await axios.post("http://localhost:3636/uploads", formData);
+        const secureUrl = response.data.secureUrl;
   
-      const newEventResponse = await axios.post("http://localhost:3636/events", eventData);
-      console.log("Event Creation Response:", newEventResponse.data);
-      if (newEventResponse.data.success) {
-        // The event was successfully added to the server
-        addNewEvent(newEventResponse.data.event);
+        // Create the event data object
+        const eventData = {
+          title: eventName,
+          date: eventDate,
+          location: eventLocation,
+          city: eventCity,
+          ticketPrice,
+          description: eventDescription,
+          tags: eventTags.split(",").map((tag) => tag.trim()),
+          image: secureUrl,
+        };
   
+        // Create the event on the server
+        await axios.post("http://localhost:3636/events", eventData);
+  
+        // Reset form fields after successful event creation
         setEventName("");
         setEventDate("");
         setEventLocation("");
@@ -57,13 +58,14 @@ function Form({ addNewEvent }) {
         setEventTags("");
         setEventImage(null);
   
+        // Navigate to the profile page or any other desired location after successful creation
         navigate("/profile");
-      } else {
-        // Handle any error message sent from the server
-        console.error("Error adding the event:", newEventResponse.data.message);
+      } catch (error) {
+        console.error("Error uploading image or adding event:", error);
       }
-    } catch (error) {
-      console.error("Error uploading image or adding event:", error);
+    } else {
+      // Image is not uploaded, show an error or handle it as needed
+      console.error("Image is required.");
     }
   };
 

@@ -34,8 +34,9 @@ function CardsProfile() {
         <div className="grid-cards">
           {events.map((event, index) => (
             <div key={index} className="card">
-              <img src={event.eventImage} alt={`img-${index}`} title="card image" />
-              <div className="card-body">
+              {event.image && (
+                <img src={event.image} alt={`img-${index}`} title="card image" />
+              )}              <div className="card-body">
                 <h3 className="title-card">{event.title}</h3>
                 <p>{event.description}</p>
                 <p>Date: {event.date}</p>
