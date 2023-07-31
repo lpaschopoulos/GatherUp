@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Form from "../Form/Form";
+import dateFormat from 'dateformat';
 import "./CardsProfile.scss";
 
 function CardsProfile() {
@@ -38,9 +39,11 @@ function CardsProfile() {
                 <img src={event.image} alt={`img-${index}`} title="card image" />
               )}              <div className="card-body">
                 <h3 className="title-card">{event.title}</h3>
-                <p>{event.description}</p>
-                <p>Date: {event.date}</p>
-                <p>Location: {event.location}</p>
+                <p className="date">Date: {dateFormat(event.date,"dddd, dS mmmm yyyy") }</p>
+                <p className="city">City:{event.city}</p>
+                <p className="location">Location: {event.location}</p>
+                <p className="details">Details:{event.description}</p>
+                
                 {/* Add other event properties you want to display */}
               </div>
               <div className="card-footer">

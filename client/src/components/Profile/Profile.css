@@ -7,7 +7,7 @@
     height: calc(100vh - 50px);
     background-color: #f2f2f2;
     background-image: url('../../assets/images/gathering.jpg');
-    background-size: cover;
+    background-size:cover;
     background-repeat: no-repeat;
     background-position: center;
     position: relative; /* Add relative positioning to the .profile container */

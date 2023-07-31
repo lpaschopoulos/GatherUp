@@ -1,8 +1,10 @@
-/* Footer.css */
-
 .footerposition {
-  
-  min-height: 100px;
-  width: 100%;
+  /*min-height:1px;*/
+  position:relative;
   bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
 }

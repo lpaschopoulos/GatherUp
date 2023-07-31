@@ -14,16 +14,20 @@ function App() {
     <Router>
       <div className="App">
         <NavBar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create" element={<Form />} />
-        </Routes>
+        <div className="content">
+          {/* Rest of your content goes here */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create" element={<Form />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
   );
 }
+
 
 export default App;

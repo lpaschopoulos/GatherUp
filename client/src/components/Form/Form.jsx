@@ -40,7 +40,7 @@ function Form({ addNewEvent }) {
           location: eventLocation,
           city: eventCity,
           ticketPrice,
-          description: eventDescription,
+          details: eventDescription,
           tags: eventTags.split(",").map((tag) => tag.trim()),
           image: secureUrl,
         };
