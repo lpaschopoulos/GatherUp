@@ -1,0 +1,66 @@
+.buttonE {
+    position: relative;
+    width: 130px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #2b1e77;
+    background-color: #2240c5;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .buttonE, .button__iconE, .button__textE {
+    transition: all 0.3s;
+    
+  }
+
+  
+  .buttonE .button__textE {
+    transform: translateX(25px);
+    color: #fff;
+    font-weight: 600;
+    
+  }
+  
+  .buttonE .button__iconE {
+    position: absolute;
+    transform: translateX(88px);
+    height: 100%;
+    width: 39px;
+    background-color: #4780d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+  }
+
+
+  .buttonE .svgE {
+    width: 18px;
+  }
+  
+  .buttonE:hover {
+    background: #4780d4;
+  }
+  
+  .buttonE:hover .button__textE {
+    color: transparent;
+  }
+  
+  .buttonE:hover .button__iconE {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .buttonE:active .button__iconE {
+    background-color: #2240c5;
+  }
+  
+  .buttonE:active {
+    border: 1px solid #2240c5;
+  }
+
+  

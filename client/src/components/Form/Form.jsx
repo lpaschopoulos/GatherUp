@@ -116,7 +116,7 @@ function Form({ addNewEvent }) {
           </div>
 
           <div className="formInput-group">
-            <label>Ticket Price</label>
+            <label>Ticket Price ( € )</label>
             <input
               type="text"
               name="ticketPrice"

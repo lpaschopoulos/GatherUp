@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Form from "../Form/Form";
 import dateFormat from 'dateformat';
+import DeleteButton from "../DeleteButton/DeleteButton";
 import "./CardsProfile.scss";
+import EditButton from "../EditButton/EditButton";
 
 function CardsProfile() {
   const navigate = useNavigate();
@@ -31,23 +32,25 @@ function CardsProfile() {
   return (
     <div className="page-container">
       <div className="container one">
-        <h3 style={{ paddingLeft: "25px" }}>Your List of Events:</h3>
-        <div className="grid-cards">
+        <h3 className="section-title">Your List of Events:</h3>
+        <div className="card-grid">
           {events.map((event, index) => (
-            <div key={index} className="card">
+            <div key={index} className="card custom-card">
               {event.image && (
-                <img src={event.image} alt={`img-${index}`} title="card image" />
-              )}              <div className="card-body">
-                <h3 className="title-card">{event.title}</h3>
-                <p className="date">Date: {dateFormat(event.date,"dddd, dS mmmm yyyy") }</p>
-                <p className="city">City:{event.city}</p>
-                <p className="location">Location: {event.location}</p>
-                <p className="details">Details:{event.description}</p>
-                
-                {/* Add other event properties you want to display */}
+                <img src={event.image} alt={`img-${index}`} className="card-img-top" />
+              )}
+              <div className="card-body">
+                <h3 className="card-title">{event.title}</h3>
+                <p className="card-text"><strong>Date:</strong> {dateFormat(event.date, "dddd, dS mmmm yyyy")}</p>
+                <p className="card-text"><strong>City:</strong> {event.city}</p>
+                <p className="card-text"><strong>Location:</strong> {event.location}</p>
+                <p className="card-text"><strong>Details:</strong> {event.description}</p>
+                <p className="card-text"><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
+                <p className="card-text"><strong>Tags:</strong> {event.tags}</p>
               </div>
               <div className="card-footer">
-                <a href="#">Click here</a>
+                <DeleteButton/>
+                <EditButton/>
               </div>
             </div>
           ))}
