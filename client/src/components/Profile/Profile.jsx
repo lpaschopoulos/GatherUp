@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import dateFormat from 'dateformat';
 import CardsProfile from "../CardsProfile/CardsProfile";
 import "./Profile.css";
 
@@ -18,10 +16,8 @@ function Profile() {
           token: localStorage.getItem("token"),
         })
         .then(({ data }) => {
-          console.log(data);
           if (data._id) {
             setUser(data);
-            getMyEvents(data._id);
           } else {
             navigate("/login");
           }
@@ -35,18 +31,7 @@ function Profile() {
     }
   }, [navigate]);
 
-  function getMyEvents(userId) {
-    console.log("Fetching events for user:", userId);
-    axios
-      .get("http://localhost:3636/events/user/" + userId)
-      .then(({ data }) => {
-        console.log('Events data:', data);
-        setEvents(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
-  }
+
 
   const handleCreateEvent = () => {
     console.log("Button clicked!");
@@ -54,9 +39,7 @@ function Profile() {
     navigate(`/create/${user._id}`);
   };
 
-  const handleAddNewEvent = (eventData) => {
-    setEvents((prevEvents) => [...prevEvents, eventData]);
-  };
+
 
   return (
     <div className="profile">
@@ -79,7 +62,7 @@ function Profile() {
         </button>
       </div>
       <div className="page-container">
-        <CardsProfile events={events} addNewEvent={handleAddNewEvent} />
+      <CardsProfile userId={user?._id} />
       </div>
     </div>
   );

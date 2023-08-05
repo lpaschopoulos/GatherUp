@@ -6,46 +6,47 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import "./CardsProfile.scss";
 import EditButton from "../EditButton/EditButton";
 
-function CardsProfile() {
+function CardsProfile({ userId }) {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState(null);
 
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      axios
-        .post("http://localhost:3636/user/verify", {
-          token: localStorage.getItem("token"),
-        })
-        .then(({ data }) => {
-          console.log(data);
-          if (data._id) {
-            setUser(data);
-            getMyEvents(data._id);
-          } else {
-            navigate("/login");
-          }
-        });
-    } else {
-      navigate("/login");
+    if (userId) {
+      getMyEvents(userId);
     }
-  }, [navigate]);
+  }, [userId]);
 
   function getMyEvents(userId) {
-    console.log("Fetching events for user:", userId); 
-    axios.get("http://localhost:3636/events/user/" + userId).then(({ data }) => {
+    console.log("Fetching events for user:", userId);
+    axios
+      .get("http://localhost:3636/events/user/" + userId)
+      .then(({ data }) => {
         console.log('Events data:', data);
         setEvents(data);
-    }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error fetching events:", error);
-    });
-};
+      });
+  }
 
 
-  const addNewEvent = (eventData) => {
-    setEvents((prevEvents) => [...prevEvents, eventData]);
+
+  const deleteEvent = (id) => {
+    const confirmDelete = window.confirm("Do you really want to delete the event?")
+    if (confirmDelete) {
+    axios.delete(`http://localhost:3636/events/${id}`)
+      .then(() => {
+        // Remove the event from the events state
+        setEvents((prevEvents) => prevEvents.filter(event => event._id !== id));
+      })
+      .catch((error) => {
+        console.error("Error deleting event:", error);
+      });
+    }
   };
+  
 
   return (
     <div className="page-container">
@@ -70,7 +71,7 @@ function CardsProfile() {
                 <p className="card-text"><strong>Tags:</strong> {event.tags}</p>
               </div>
               <div className="card-footer">
-                <DeleteButton/>
+                <DeleteButton onDelete={()=>deleteEvent(event._id)}/>
                 <EditButton/>
               </div>
             </div>

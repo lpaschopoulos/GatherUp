@@ -1,9 +1,9 @@
 import React from "react";
 import "./EditButton.css";
 
-function EditButton() {
+function EditButton({onEdit}) {
   return (
-    <button className="buttonE" type="button">
+    <button className="buttonE" type="button" onClick={onEdit}>
       <span className="button__textE">Edit</span>
       <span className="button__iconE">
         <svg

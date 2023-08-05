@@ -1,9 +1,9 @@
 import React from "react";
 import "./DeleteButton.css"
 
-function DeleteButton() {
+function DeleteButton({onDelete}) {
   return (
-    <button className="button" type="button">
+    <button className="button" type="button" onClick={onDelete}>
       <span className="button__text">Delete</span>
       <span className="button__icon">
         <svg
