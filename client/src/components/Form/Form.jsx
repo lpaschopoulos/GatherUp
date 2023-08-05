@@ -1,13 +1,13 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DateTimePicker from "react-datetime-picker";
 import "./Form.css";
 
 function Form({ addNewEvent }) {
   const navigate = useNavigate();
   const [eventName, setEventName] = useState("");
-  const [eventDate, setEventDate] = useState("");
+  const [eventDate, setEventDate] = useState(new Date());
   const [eventLocation, setEventLocation] = useState("");
   const [eventCity, setEventCity] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
@@ -87,12 +87,11 @@ function Form({ addNewEvent }) {
           </div>
 
           <div className="formInput-group">
-            <label>Event Date</label>
-            <input
-              type="date"
-              name="eventDate"
-              onChange={(e) => setEventDate(e.target.value)}
-            />
+            <label>Event Date and Time</label>
+            <DateTimePicker
+    onChange={setEventDate}
+    value={eventDate}
+  />
           </div>
 
           <div className="formInput-group">
