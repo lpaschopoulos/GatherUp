@@ -6,7 +6,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import "./CardsProfile.scss";
 import EditButton from "../EditButton/EditButton";
 
-function CardsProfile({ userId }) {
+function CardsProfile({ userId, image }) {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState(null);
@@ -49,13 +49,13 @@ function CardsProfile({ userId }) {
   
 
   return (
-    <div className="page-container">
+    <div  className="page-container">
       <div className="container one">
         <h3 className="section-title">Your List of Events:</h3>
         <div className="card-grid">
           {events.map((event) => (
             <div key={event._id} className="card custom-card">
-              {event.image && (
+              {typeof event.image === "string" && (
                 <img src={event.image} alt={`img-${event._id}`} className="card-img-top" />
               )}
               <div className="card-body">
@@ -72,7 +72,7 @@ function CardsProfile({ userId }) {
               </div>
               <div className="card-footer">
                 <DeleteButton onDelete={()=>deleteEvent(event._id)}/>
-                <EditButton/>
+                <EditButton eventId={event._id} />
               </div>
             </div>
           ))}

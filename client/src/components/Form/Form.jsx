@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "react-datetime/css/react-datetime.css";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import "./Form.css";
 
 function Form({ addNewEvent }) {
+  const { eventId } = useParams();
   const { userId } = useParams();
   console.log("userId:", userId);
   const navigate = useNavigate();
@@ -17,27 +18,59 @@ function Form({ addNewEvent }) {
   const [eventDescription, setEventDescription] = useState("");
   const [eventTags, setEventTags] = useState("");
   const [eventImage, setEventImage] = useState(null);
+  const [previousEventImage, setPreviousEventImage] = useState(null);
+  const [hasNewImage, setHasNewImage] = useState(false);
 
 
 
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
-    setEventImage(imageFile);
+    // Set the eventImage state only if a new image is selected
+    if (imageFile) {
+      setEventImage(imageFile);
+      setHasNewImage(true);
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
+  useEffect(() => {
+    if (eventId) {
+      // If eventId is present, we're in editing mode
+      // Fetch the event data and populate the form fields
+      axios.get(`http://localhost:3636/events/${eventId}`)
+        .then(({ data }) => {
+          setEventName(data.title);
+          setEventDate(data.date);
+          setEventLocation(data.location);
+          setEventCity(data.city);
+          setTicketPrice(data.ticketPrice);
+          setEventDescription(data.details);
+          setEventTags(data.tags.join(", "));
+          setEventImage(data.image);
+          setPreviousEventImage(data.image);
+          setHasNewImage(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching event data:', error);
+        });
+    }
+  }, [eventId]);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (hasNewImage) {
+    // If a new image is selected, proceed with image upload and form submission
+
     if (eventImage) {
-      // Image is uploaded, proceed with form submission
+      // Image is uploaded, proceed with form submission and image upload
       const formData = new FormData();
       formData.append("image", eventImage);
-  
+
       try {
-        // Upload the image to Cloudinary
+        // Upload the image to Cloudinary or your desired server
         const response = await axios.post("http://localhost:3636/uploads", formData);
         const secureUrl = response.data.secureUrl;
-  
+
         // Create the event data object
         const eventData = {
           title: eventName,
@@ -48,12 +81,18 @@ function Form({ addNewEvent }) {
           details: eventDescription,
           tags: eventTags.split(",").map((tag) => tag.trim()),
           image: secureUrl,
-          userId:userId,
+          userId: userId,
         };
-        console.log("eventData:", eventData);
-        // Create the event on the server
-        await axios.post("http://localhost:3636/events", eventData);
-  
+
+        if (eventId) {
+          // If eventId is present, we're in editing mode
+          // Send a PUT or PATCH request to update the event
+          await axios.put(`http://localhost:3636/events/${eventId}`, eventData);
+        } else {
+          // Create the event on the server
+          await axios.post("http://localhost:3636/events", eventData);
+        }
+
         // Reset form fields after successful event creation
         setEventName("");
         setEventDate("");
@@ -63,17 +102,80 @@ function Form({ addNewEvent }) {
         setEventDescription("");
         setEventTags("");
         setEventImage(null);
-  
+        setHasNewImage(false); // Reset hasNewImage state after submission
+
         // Navigate to the profile page or any other desired location after successful creation
         navigate("/profile");
       } catch (error) {
-        console.error("Error uploading image or adding event:", error);
+        console.error("Error uploading image or adding/editing event:", error);
       }
     } else {
       // Image is not uploaded, show an error or handle it as needed
       console.error("Image is required.");
     }
-  };
+  } else {
+    // If no new image is selected, proceed with form submission without image upload
+
+    // Create the event data object
+    const eventData = {
+      title: eventName,
+      date: eventDate,
+      location: eventLocation,
+      city: eventCity,
+      ticketPrice,
+      details: eventDescription,
+      tags: eventTags.split(",").map((tag) => tag.trim()),
+      image: previousEventImage, // Use the previous image URL for the event data
+      userId: userId,
+    };
+
+    try {
+      if (eventId) {
+        // If eventId is present, we're in editing mode
+        // Send a PUT or PATCH request to update the event
+        await axios.put(`http://localhost:3636/events/${eventId}`, eventData);
+      } else {
+        // Create the event on the server
+        await axios.post("http://localhost:3636/events", eventData);
+      }
+
+      // Reset form fields after successful event creation
+      setEventName("");
+      setEventDate("");
+      setEventLocation("");
+      setEventCity("");
+      setTicketPrice("");
+      setEventDescription("");
+      setEventTags("");
+      setEventImage(null);
+      setHasNewImage(false); // Reset hasNewImage state after submission
+
+      // Navigate to the profile page or any other desired location after successful creation
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error adding/editing event:", error);
+    }
+  }
+};
+
+
+const formattedEventDate = (dateString) => {
+  const date = new Date(dateString);
+  const offsetInMinutes = date.getTimezoneOffset();
+  const adjustedDate = new Date(date.getTime() - offsetInMinutes * 60000);
+
+  // Add 3 hours to the adjustedDate
+  adjustedDate.setHours(adjustedDate.getHours() - 3);
+
+  // Convert the adjustedDate to the format "YYYY-MM-DDTHH:mm"
+  const year = adjustedDate.getFullYear();
+  const month = String(adjustedDate.getMonth() + 1).padStart(2, "0");
+  const day = String(adjustedDate.getDate()).padStart(2, "0");
+  const hours = String(adjustedDate.getHours()).padStart(2, "0");
+  const minutes = String(adjustedDate.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
 
 
 
@@ -89,6 +191,7 @@ function Form({ addNewEvent }) {
             <input
               type="text"
               name="eventName"
+              value={eventName}
               onChange={(e) => setEventName(e.target.value)}
               placeholder="Enter Event Name"
             />
@@ -98,7 +201,7 @@ function Form({ addNewEvent }) {
             <label>Event Date and Time</label>
             <input
           type="datetime-local"
-          value={eventDate}
+          value={formattedEventDate(eventDate)}
           onChange={(e) => setEventDate(e.target.value)}
           lang="en"
         />
@@ -109,6 +212,7 @@ function Form({ addNewEvent }) {
             <input
               type="text"
               name="eventLocation"
+              value={eventLocation}
               onChange={(e) => setEventLocation(e.target.value)}
               placeholder="Enter Event Location"
             />
@@ -119,6 +223,7 @@ function Form({ addNewEvent }) {
             <input
               type="text"
               name="eventCity"
+              value={eventCity}
               onChange={(e) => setEventCity(e.target.value)}
               placeholder="Enter Event City"
             />
@@ -129,6 +234,7 @@ function Form({ addNewEvent }) {
             <input
               type="text"
               name="ticketPrice"
+              value={ticketPrice}
               onChange={(e) => setTicketPrice(e.target.value)}
               placeholder="Enter Ticket Price"
             />
@@ -138,6 +244,7 @@ function Form({ addNewEvent }) {
             <label>Event Description</label>
             <textarea
               name="eventDescription"
+              value={eventDescription}
               onChange={(e) => setEventDescription(e.target.value)}
               placeholder="Enter Event Description"
               rows="4"
@@ -149,6 +256,7 @@ function Form({ addNewEvent }) {
             <input
               type="text"
               name="eventTags"
+              value={eventTags}
               onChange={(e) => setEventTags(e.target.value)}
               placeholder="Enter Tags (comma separated)"
             />
@@ -162,13 +270,15 @@ function Form({ addNewEvent }) {
               onChange={handleImageUpload}
             />
           </div>
+
           {eventImage && (
-        <img
-          className="uploadedImage"
-          src={URL.createObjectURL(eventImage)}
-          alt="Uploaded Event"
-        />
-      )}
+    <img
+      className="uploadedImage"
+      src={typeof eventImage === 'string' ? eventImage : URL.createObjectURL(eventImage)}
+      alt="Uploaded Event"
+    />
+)}
+
           <div className="submitBtn-wrap">
             <button id="submitButton" type="submit">
               Create Event

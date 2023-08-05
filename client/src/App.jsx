@@ -21,6 +21,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/create/:userId" element={<Form />} />
+            <Route path="edit-event/:eventId" element={<Form />} />
+
           </Routes>
         </div>
         <Footer />

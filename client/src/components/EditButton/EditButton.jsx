@@ -1,9 +1,14 @@
 import React from "react";
 import "./EditButton.css";
+import { useNavigate } from "react-router-dom";
 
-function EditButton({onEdit}) {
+function EditButton({eventId}) {
+  const navigate = useNavigate();
+  const handleEdit = () => {
+    navigate(`/edit-event/${eventId}`);
+  }
   return (
-    <button className="buttonE" type="button" onClick={onEdit}>
+    <button className="buttonE" type="button" onClick={handleEdit}>
       <span className="button__textE">Edit</span>
       <span className="button__iconE">
         <svg
