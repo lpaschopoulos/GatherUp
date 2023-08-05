@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DateTimePicker from "react-datetime-picker";
+import "react-datetime/css/react-datetime.css";
+import { useParams } from "react-router-dom";
 import "./Form.css";
 
 function Form({ addNewEvent }) {
+  const { userId } = useParams();
+  console.log("userId:", userId);
   const navigate = useNavigate();
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState(new Date());
@@ -14,6 +17,8 @@ function Form({ addNewEvent }) {
   const [eventDescription, setEventDescription] = useState("");
   const [eventTags, setEventTags] = useState("");
   const [eventImage, setEventImage] = useState(null);
+
+
 
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
@@ -43,8 +48,9 @@ function Form({ addNewEvent }) {
           details: eventDescription,
           tags: eventTags.split(",").map((tag) => tag.trim()),
           image: secureUrl,
+          userId:userId,
         };
-  
+        console.log("eventData:", eventData);
         // Create the event on the server
         await axios.post("http://localhost:3636/events", eventData);
   
@@ -69,6 +75,8 @@ function Form({ addNewEvent }) {
     }
   };
 
+
+
   return (
     <div className="formContainer">
       <div className="containerContent">
@@ -88,10 +96,12 @@ function Form({ addNewEvent }) {
 
           <div className="formInput-group">
             <label>Event Date and Time</label>
-            <DateTimePicker
-    onChange={setEventDate}
-    value={eventDate}
-  />
+            <input
+          type="datetime-local"
+          value={eventDate}
+          onChange={(e) => setEventDate(e.target.value)}
+          lang="en"
+        />
           </div>
 
           <div className="formInput-group">
