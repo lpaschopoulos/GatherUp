@@ -13,20 +13,35 @@ function Register() {
   const [password, setPassword] = useState("");
 
 
-
-  function register(){
+  function register() {
     axios
-    .post("http://localhost:3636/user/signup", {username, email, password})
-    .then(({data})=>{
-      console.log(data);
-      if (data.token){
-        localStorage.setItem("token", data.token);
-        navigate("/profile");
-      } else{
-        alert(data.msg);
-      }
-  }); 
-  }
+        .post("http://localhost:3636/user/signup", { username, email, password })
+        .then(({ data }) => {
+            console.log(data);
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+                navigate("/profile");
+            } else {
+                alert(data.msg);
+            }
+        })
+        .catch(error => {
+            if (error.response) {
+                // Handle the expected 400 error
+                if (error.response.status === 400) {
+                    alert(error.response.data.msg);
+                } else {
+                    // Handle other possible HTTP errors (like 500, 403, etc.)
+                    alert(`An error occurred: ${error.response.status} ${error.response.statusText}`);
+                }
+            } else {
+                // Handle other errors like network errors
+                alert('An unexpected error occurred. Please try again.');
+            }
+        });
+}
+
+
 
   return (
     <MDBContainer className="my-5">

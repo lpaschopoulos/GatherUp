@@ -25,8 +25,11 @@ function Login() {
         }
       })
       .catch((error) => {
-        console.log(error);
-        alert("An error occurred during login.");
+        if (error.response && error.response.data && error.response.data.msg) {
+          alert(error.response.data.msg); // Display the backend's error message as an alert
+        } else {
+          alert("An error occurred. Please try again."); // Display a generic error message for other errors
+        }
       });
   }
 

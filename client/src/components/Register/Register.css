@@ -1,0 +1,3 @@
+.btn:active, .btn:focus {
+    height: 50px !important; 
+}
