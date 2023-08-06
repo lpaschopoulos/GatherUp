@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CardsProfile from "../CardsProfile/CardsProfile";
+import Username from "../Username/Username";
 import "./Profile.css";
 
 function Profile() {
@@ -32,15 +33,6 @@ function Profile() {
   }, [navigate]);
 
 
-
-  const handleCreateEvent = () => {
-    console.log("Button clicked!");
-    // Add the logic to navigate to the "Create Event" page
-    navigate(`/create/${user._id}`);
-  };
-
-
-
   return (
     <div className="profile">
       <div className="circle-container">
@@ -56,10 +48,7 @@ function Profile() {
         )}
       </div>
       <div className="user-info">
-        <h1 className="username">Welcome back {user?.username}</h1>
-        <button className="create-event-btn" onClick={handleCreateEvent}>
-          Create New Event
-        </button>
+      <Username userInfo={user}/>
       </div>
       <div className="page-container">
       <CardsProfile userId={user?._id} />

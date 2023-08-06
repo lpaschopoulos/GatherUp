@@ -4,6 +4,7 @@
   height: 100vh; /* Use height instead of min-height */
 }
 .content {
+  
   flex: 1; /* Let the content grow to fill the available space */
   overflow-y: auto; /* Enable scrolling for the content when needed */
 }

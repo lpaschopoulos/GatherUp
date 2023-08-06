@@ -1,0 +1,123 @@
+/* Username.css */
+
+/* Style for the .button-container */
+.button-container {
+    margin-top: 40px;
+    background-color: #e4e4e4;
+    border-radius: 15px;
+    box-shadow: 10px 10px 20px #c4c4c4, -10px -10px 20px #ffffff;
+    display: grid;
+    grid-template-columns: 1fr; /* One column to make the container wider */
+    grid-template-rows: 1fr auto; /* Two rows: first row takes the remaining space, second row adjusts to content */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    padding: 20px;
+    min-width: 400px; /* Minimum width for the container */
+    min-height: 200px; /* Minimum height for the container */
+  }
+  
+  /* Style for the username text */
+  .username {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    justify-self: center;
+  }
+
+  .username-color {
+    color: #6001ce; /* Replace #FF0000 with the color you want */
+  }
+  
+
+
+  /* Style for the buttons container */
+  .button-container .buttons-row {
+    display: flex;
+    flex-direction: row; /* Align buttons side by side */
+    justify-content: center; /* Center buttons horizontally within the container */
+  }
+  
+  
+  
+    .buttonU {
+    background-color: #e4e4e4;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 5px #c4c4c4,
+                inset -5px -5px 5px #ffffff;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 3px;
+    padding: 10px;
+    text-transform: uppercase;
+
+  }
+  
+  .buttonU:hover {
+    box-shadow: none;
+  }
+  
+  .actionbuttons {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  .button-container .Explore {
+    color: #3035cb;
+  }
+  
+  .button-container .Explore:hover {
+    background-color: #3035cb;
+    color: #e4e4e4;
+  }
+  
+  .button-container .Explore .actionbuttons {
+    fill: #3035cb;
+  }
+  
+  .button-container .Explore:hover .actionbuttons {
+    fill: #e4e4e4;
+  }
+  
+  .button-container .Account {
+    color: #333;
+  }
+  
+  .button-container .Account:hover {
+    background-color: #333;
+    color: #e4e4e4;
+  }
+  
+  .button-container .Account .actionbuttons {
+    fill: #333;
+  }
+  
+  .button-container .Account:hover .actionbuttons {
+    fill: #e4e4e4;
+  }
+  
+  .button-container .Logout {
+    color: #b82323;
+  }
+  
+  .button-container .Logout:hover {
+    background-color: #b82323;
+    color: #e4e4e4;
+  }
+  
+  .button-container .Logout .actionbuttons {
+    fill: #b82323;
+  }
+  
+  .button-container .Logout:hover .actionbuttons {
+    fill: #e4e4e4;
+  }
+  

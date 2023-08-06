@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
+import Account from "./components/Account/Account"
 import "./App.css"
 
 
@@ -15,17 +16,15 @@ function App() {
       <div className="App">
         <NavBar />
         <div className="content">
-          {/* Rest of your content goes here */}
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/create/:userId" element={<Form />} />
             <Route path="edit-event/:eventId" element={<Form />} />
-
           </Routes>
         </div>
-        <Footer />
       </div>
     </Router>
   );

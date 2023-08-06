@@ -1,18 +1,25 @@
 /* Profile.css */
 .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start; /* Align children to the top left */
-    height: calc(100vh - 50px);
-    background-color: #f2f2f2;
-    background-image: url('../../assets/images/gathering.jpg');
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative; /* Add relative positioning to the .profile container */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* original setting */
+  justify-content: flex-start; /* original setting */
+  height: calc(100vh - 50px);
+  background-color: #f2f2f2;
+  background-image: none;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.user-info {
+  top: 0;  
+  left: 50%;  
+}
+
+
+
   .circle {
     width: 100px;
     height: 100px;
@@ -20,8 +27,12 @@
     background-color: #ffffff;
     background-size: cover;
     margin-bottom: 10px;
-    align-self: flex-start; /* Move circle to the top left */
+    align-self: flex-start;
   }
+  .page-container {
+    padding-top: 10px;
+    align-self: flex-start;
+}
   
   .default-circle {
     /* Add default background styles here */
@@ -29,34 +40,10 @@
     /* background-image: url('path/to/default-image.jpg'); */ /* Example: Set a default background image */
   }
   
-  .username {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff9f9;
-    margin-left: 20px; /* Add some left margin for spacing */
-  }
-  
-  .create-event-btn {
-    background-color: #007bff;
-    color: #ffffff;
-    font-size: 16px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    align-self: flex-start; /* Move button to the top left */
-    margin-left: 20px; /* Add some left margin for spacing */
-  }
   
   .top-left {
     position: absolute;
     top: 0;
     left: 20px;
     padding: 20px;
-  }
-  
-  .user-info {
-    margin-left: 140px; /* Adjust this value according to your layout */
-    /* Add any other styling for the user info container if needed */
   }
