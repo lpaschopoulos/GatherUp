@@ -9,8 +9,22 @@
   margin: auto;
 }
 
+.container.one {
+  display: flex;
+  flex-direction: column; // Stack children vertically
+  height: 100%; // This is required for vertical centering
+}
+
 .section-title {
-  padding-left: 25px;
+  color:white;
+  padding-left: 20px;
+  margin:20px;
+  display: flex;
+  justify-content: center; // Center horizontally
+  align-items: center; // Center vertically
+  flex-grow: 0; // Prevent it from growing
+  width: 110%; // Take the full width
+  height: 100px; // Or however tall you want this container to be
 }
 
 .card-grid {

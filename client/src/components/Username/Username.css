@@ -5,7 +5,7 @@
     margin-top: 40px;
     background-color: #e4e4e4;
     border-radius: 15px;
-    box-shadow: 10px 10px 20px #c4c4c4, -10px -10px 20px #ffffff;
+    box-shadow: 10px 10px 20px #c4c4c4, -10px -10px 20px #c4c4c4;
     display: grid;
     grid-template-columns: 1fr; /* One column to make the container wider */
     grid-template-rows: 1fr auto; /* Two rows: first row takes the remaining space, second row adjusts to content */
