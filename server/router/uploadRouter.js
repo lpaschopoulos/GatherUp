@@ -29,7 +29,7 @@ router.post('/profilePic', upload.single('image'), async function (req, res) {
     const result = await cloudinary.uploader.upload(req.file.path);
     const secureUrl = result.secure_url;
 
-    const userId = req.body.userId || req.headers.userId;
+    const userId = req.body.userId; // Extracting userId from the body of the request.
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -37,11 +37,22 @@ router.post('/profilePic', upload.single('image'), async function (req, res) {
       });
     }
 
-    await User.findByIdAndUpdate(userId, { profilePic: secureUrl });
+    // Fetch the user from the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found."
+      });
+    }
+
+    // Update the profilePic field and save the user object
+    user.profilePic = secureUrl;
+    await user.save();
 
     res.status(200).json({
       success: true,
-      message: "Profile image uploaded!",
+      message: "Profile image uploaded and saved successfully!",
       secureUrl: secureUrl
     });
   } catch (err) {
@@ -53,5 +64,6 @@ router.post('/profilePic', upload.single('image'), async function (req, res) {
     });
   }
 });
+
 
 module.exports = router;

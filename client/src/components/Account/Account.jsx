@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import UserContext from "../../Context/context"
+import { useParams } from 'react-router-dom';
+
 import "./Account.css";
 
 function Account() {
+
+  const { userId } = useParams();
+
+
+  const { user, setUser } = useContext(UserContext);
   const [userImage, setUserImage] = useState(null);
   const [hasNewImage, setHasNewImage] = useState(false);
+  console.log("User from context:", user);
+
 
   const handleImageUpload = async (e) => {
     const imageFile = e.target.files[0];
@@ -14,13 +24,13 @@ function Account() {
       setHasNewImage(true);
   
       try {
-        // Upload the image to the backend (e.g., using the axios.post method)
-        // Replace "http://localhost:3636/upload-image" with the actual endpoint to upload the image on your backend
+        // Upload the image to the backend using the axios.post method
         const formData = new FormData();
         formData.append("image", imageFile);
-  
-        const response = await axios.post("http://localhost:3636/uploads", formData);
-        const imageUrl = response.data.imageUrl; // Assuming the backend responds with the URL of the uploaded image
+        formData.append("userId", user._id);  // Assuming the user object has a property '_id' that represents the user ID
+        
+        const response = await axios.post("http://localhost:3636/profilePic", formData);
+        const imageUrl = response.data.secureUrl;  // Assuming the backend responds with the secure URL of the uploaded image under the 'secureUrl' property
   
         // Use the received image URL directly and set it to the userImage state
         setUserImage(imageUrl);
@@ -31,19 +41,20 @@ function Account() {
     }
   };
 
+
   useEffect(() => {
-    // This function fetches the user's profile data when the component mounts
-    const fetchUserProfile = async () => {
+    // Replace 'userId' with the actual user ID
+    const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get("http://localhost:3636/user/{userId}");
-        const { imageUrl } = response.data;
-        setUserImage(imageUrl);
+        const response = await axios.get(`http://localhost:3636/user/${userId}`);
+        setUser(response.data.user);
+        setUserImage(response.data.user.profilePic);
       } catch (error) {
-        console.error("Error fetching user profile:", error);
+        console.error("Error fetching user data:", error);
       }
     };
-  
-    fetchUserProfile();
+    
+    fetchUserData('userId');  // Pass the correct userId here
   }, []);
 
   return (

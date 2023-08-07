@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput, Button } from 'mdb-react-ui-kit';
 import "./Login.css";
 import logoImage from '../../assets/images/gathering-for-logo.jpg';
 import logoImages from '../../assets/images/location-map-marker-icons-icon.png';
+import UserContext from "../../Context/context"
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
 
 
 
@@ -19,7 +21,21 @@ function Login() {
         console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
-          navigate("/profile");
+          
+          // Fetch the user's details using the verify endpoint
+          axios.post("http://localhost:3636/user/verify", { token: data.token })
+            .then(response => {
+              if (response.data && response.data._id) {
+                setUser(response.data);
+                navigate("/profile");
+              } else {
+                alert("Error fetching user data.");
+              }
+            })
+            .catch(error => {
+              alert("Error verifying token. Please try again.");
+            });
+          
         } else {
           alert(data.msg);
         }

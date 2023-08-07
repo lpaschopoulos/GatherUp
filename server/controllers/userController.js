@@ -108,7 +108,7 @@ async function updateUserById(req, res) {
 
   async function findById(req, res) {
     try {
-      const userId = req.params.id; // Get the user ID from the request parameters
+      const userId = req.params._id; // Get the user ID from the request parameters
       const user = await User.findById(userId); // Fetch the user from the database
   
       if (!user) {

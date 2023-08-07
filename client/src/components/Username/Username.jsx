@@ -18,6 +18,11 @@ const Username = ({userInfo}) => {
     navigate(`/create/${userInfo._id}`);
   };
 
+  const handleAccount = () => {
+    console.log("Button clicked!");
+    navigate(`/account/${userInfo._id}`);
+  };
+
   return (
     <div className="button-container">
         <h1 className="username">Welcome <span className="username-color">{userInfo?.username}</span></h1>
@@ -31,7 +36,7 @@ const Username = ({userInfo}) => {
         </svg>
         New Event
       </button>
-      <button className="buttonU Account">
+      <button className="buttonU Account" onClick={handleAccount}>
       <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="actionbuttons">
           <g id="Layer_2" data-name="Layer 2">
             <g id="invisible_box" data-name="invisible box">
