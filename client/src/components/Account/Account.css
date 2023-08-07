@@ -1,0 +1,69 @@
+/* Basic.css */
+
+.user-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.user-card {
+  width: 360px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+.user-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.user-image {
+  width: 180px;
+  border-radius: 10px;
+}
+
+.user-details {
+  padding-top: 20px;
+}
+
+.user-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.user-stats-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.user-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.user-stat-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.user-stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}

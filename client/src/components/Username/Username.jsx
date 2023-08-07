@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 
 
-
-
-
-
 const Username = ({userInfo}) => {
   const navigate = useNavigate();
 

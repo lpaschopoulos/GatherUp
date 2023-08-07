@@ -105,6 +105,26 @@ async function updateUserById(req, res) {
       res.status(401).json("You can delete only your account!");
     }
   }
+
+  async function findById(req, res) {
+    try {
+      const userId = req.params.id; // Get the user ID from the request parameters
+      const user = await User.findById(userId); // Fetch the user from the database
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+  
+      res.status(200).json({ success: true, user: user });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: "Error fetching user",
+        error: err.message
+      });
+    }
+  }
   
 
 module.exports ={
@@ -113,4 +133,5 @@ module.exports ={
     verifyUser,
     updateUserById,
     deleteUserById,
+    findById,
 };
