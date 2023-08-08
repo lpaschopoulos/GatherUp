@@ -30,11 +30,13 @@
 }
 
 .user-details {
+  margin:30px;
+
   padding-top: 20px;
 }
 
 .user-name {
-  margin-top: 50px;
+  margin:30px;
   font-size: 1.5rem;
   font-weight: bold;
 }

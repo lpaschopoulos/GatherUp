@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BiSearch } from 'react-icons/bi'; // Import the search icon
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -6,18 +6,29 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, } from 'react-router-dom';
+import UserContext from '../../Context/context';
 
 import './NavBar.css';
 
 function NavBar() {
   var navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const handleSearchClick = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
   const handleLogin = () => {
     navigate ("/login");
+  };
+
+  const handleAccountClick = () => {
+    if (user) {
+      navigate('/profile'); // Navigate to /profile if user is logged in
+    } else {
+      handleLogin(); // Otherwise, navigate to /login
+    }
   };
 
   return (
@@ -33,7 +44,7 @@ function NavBar() {
             <Nav.Link href="#pricing">Tickets</Nav.Link>
             <NavDropdown title="Its Happening" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Today</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Tommorow</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Tomorrow</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Upcoming Events</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Near You</NavDropdown.Item>
@@ -62,9 +73,16 @@ function NavBar() {
             )}
           </Form>
           <Nav className="ml-auto">
-            <Button variant="outline-primary" className="account" onClick={handleLogin}>
-              Account
-            </Button>
+            {/* Conditionally render the Account button */}
+            {user ? (
+              <Button variant="outline-primary" className="account" onClick={handleAccountClick}>
+                {user.username}
+              </Button>
+            ) : (
+              <Button variant="outline-primary" className="account" onClick={handleAccountClick}>
+                Account
+              </Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

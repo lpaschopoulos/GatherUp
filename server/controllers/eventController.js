@@ -1,14 +1,18 @@
 const EventModel = require("../models/eventModel");
 
 const postEvent = async (req, res) => {
+  console.log(req.body)
   try {
-    const event = await EventModel.create(req.body);
-    res.send({ msg: "Event posted successfully", event });
+      const eventData = {...req.body, categories: req.body.category };
+      delete eventData.category;
+      const event = await EventModel.create(eventData);
+      res.send({ msg: "Event posted successfully", event });
   } catch (error) {
-    console.log("Error posting event:", error);
-    res.status(500).send({ error: "Failed to post event" });
+      console.log("Error posting event:", error);
+      res.status(500).send({ error: "Failed to post event" });
   }
 };
+
 
 const getAllEvents = async (req, res) => {
   try {
@@ -65,7 +69,8 @@ const deleteEvent = async (req, res) => {
 
 const getAllUserEvents = async (req, res) => {
   try {
-    const events = await EventModel.find({ userId: req.params.userId });
+    const events = await EventModel.find({ userId: req.params.userId }).lean();
+    //const eventCount = events.length; // Get the count of events
     res.send(events);
   } catch (error) {
     console.log("Error in getting user's all events", error);
@@ -84,6 +89,18 @@ const searchByCity = async (req, res) => {
   }
 };
 
+const getAllCategories = (req, res) => {
+  try {
+    const predefinedCategories = ['Art', 'Theater', 'Cinema', 'Concerts'];
+    res.status(200).json(predefinedCategories);
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    res.status(500).json({ error: 'Failed to fetch categories' });
+  }
+};
+
+
+
 module.exports = {
   postEvent,
   getAllEvents,
@@ -92,4 +109,5 @@ module.exports = {
   deleteEvent,
   getAllUserEvents,
   searchByCity,
+  getAllCategories,
 };

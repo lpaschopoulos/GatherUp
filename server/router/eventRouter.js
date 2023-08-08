@@ -12,6 +12,9 @@ router.put("/events/:id", eventController.updateEvent);
 router.get("/events/user/:userId", eventController.getAllUserEvents);
 router.get("/events/:id", eventController.getOneEvent);
 router.get("/events/search/city/:city", eventController.searchByCity);
+router.get("/categories", eventController.getAllCategories);
+
+
 
 module.exports = router;
 

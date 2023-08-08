@@ -1,15 +1,19 @@
-import React from 'react';
 import "./Username.css"
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../../Context/context';
 
 
 
 const Username = ({userInfo}) => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
 
   function logout(){
     localStorage.removeItem("token")
+    setUser(null);
+
     navigate("/")
   }
 

@@ -65,6 +65,34 @@
   border-radius: 5px;
 }
 
+/* Dropdown base styling */
+.formInput-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+/* Dropdown hover styling */
+.formInput-group select:hover {
+  background-color: #f2f2f2;
+}
+
+/* Dropdown focus styling */
+.formInput-group select:focus {
+  outline: none;
+  border-color: #007BFF;
+  background-color: #e6f7ff;
+}
+
+/* Styling for the options */
+.formInput-group select option {
+  padding: 8px;
+}
+
 
 
 

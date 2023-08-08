@@ -30,9 +30,10 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  tags: {
-    type: [String], // An array of strings representing tags
-    default: [], // You can set a default empty array if needed
+  categories: {
+    type: String,
+    // enum: ['Art', 'Theater', 'Cinema', 'Concerts'], // Add your specific categories here
+    required: true,
   },
   userId: String,
   // You can add more fields like organizer information, etc.

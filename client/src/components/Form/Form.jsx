@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import "./Form.css";
 
 function Form({ addNewEvent }) {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const { eventId } = useParams();
   const { userId } = useParams();
   console.log("userId:", userId);
@@ -16,12 +18,23 @@ function Form({ addNewEvent }) {
   const [eventCity, setEventCity] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [eventTags, setEventTags] = useState("");
   const [eventImage, setEventImage] = useState(null);
   const [previousEventImage, setPreviousEventImage] = useState(null);
   const [hasNewImage, setHasNewImage] = useState(false);
 
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("http://localhost:3636/categories");
+      setCategories(response.data);
+      console.log("Fetched Categories:", response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
@@ -36,7 +49,8 @@ function Form({ addNewEvent }) {
     if (eventId) {
       // If eventId is present, we're in editing mode
       // Fetch the event data and populate the form fields
-      axios.get(`http://localhost:3636/events/${eventId}`)
+      axios
+        .get(`http://localhost:3636/events/${eventId}`)
         .then(({ data }) => {
           setEventName(data.title);
           setEventDate(data.date);
@@ -44,46 +58,102 @@ function Form({ addNewEvent }) {
           setEventCity(data.city);
           setTicketPrice(data.ticketPrice);
           setEventDescription(data.details);
-          setEventTags(data.tags.join(", "));
           setEventImage(data.image);
           setPreviousEventImage(data.image);
           setHasNewImage(false);
+          setSelectedCategory(data.categories)
         })
         .catch((error) => {
-          console.error('Error fetching event data:', error);
+          console.error("Error fetching event data:", error);
         });
     }
   }, [eventId]);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (hasNewImage) {
-    // If a new image is selected, proceed with image upload and form submission
+    if (hasNewImage) {
+      // If a new image is selected, proceed with image upload and form submission
 
-    if (eventImage) {
-      // Image is uploaded, proceed with form submission and image upload
-      const formData = new FormData();
-      formData.append("image", eventImage);
+      if (eventImage) {
+        // Image is uploaded, proceed with form submission and image upload
+        const formData = new FormData();
+        formData.append("image", eventImage);
+
+        try {
+          // Upload the image to Cloudinary or your desired server
+          const response = await axios.post(
+            "http://localhost:3636/uploads",
+            formData
+          );
+          const secureUrl = response.data.secureUrl;
+
+          // Create the event data object
+          const eventData = {
+            title: eventName,
+            date: eventDate,
+            location: eventLocation,
+            city: eventCity,
+            ticketPrice,
+            details: eventDescription,
+            image: secureUrl,
+            userId: userId,
+            category: selectedCategory,
+          };
+          console.log("Event Data:", eventData);
+          if (eventId) {
+            // If eventId is present, we're in editing mode
+            // Send a PUT or PATCH request to update the event
+            await axios.put(
+              `http://localhost:3636/events/${eventId}`,
+              eventData
+            );
+          } else {
+            // Create the event on the server
+            await axios.post("http://localhost:3636/events", eventData);
+          }
+
+          // Reset form fields after successful event creation
+          setEventName("");
+          setEventDate("");
+          setEventLocation("");
+          setEventCity("");
+          setTicketPrice("");
+          setEventDescription("");
+          setEventImage(null);
+          setHasNewImage(false); // Reset hasNewImage state after submission
+          setSelectedCategory("");
+
+          // Navigate to the profile page or any other desired location after successful creation
+          navigate("/profile");
+        } catch (error) {
+          console.error(
+            "Error uploading image or adding/editing event:",
+            error
+          );
+        }
+      } else {
+        // Image is not uploaded, show an error or handle it as needed
+        console.error("Image is required.");
+      }
+    } else {
+      // If no new image is selected, proceed with form submission without image upload
+
+      // Create the event data object
+      const eventData = {
+        title: eventName,
+        date: eventDate,
+        location: eventLocation,
+        city: eventCity,
+        ticketPrice,
+        details: eventDescription,
+        image: previousEventImage, // Use the previous image URL for the event data
+        userId: userId,
+        category: selectedCategory,
+
+      };
 
       try {
-        // Upload the image to Cloudinary or your desired server
-        const response = await axios.post("http://localhost:3636/uploads", formData);
-        const secureUrl = response.data.secureUrl;
-
-        // Create the event data object
-        const eventData = {
-          title: eventName,
-          date: eventDate,
-          location: eventLocation,
-          city: eventCity,
-          ticketPrice,
-          details: eventDescription,
-          tags: eventTags.split(",").map((tag) => tag.trim()),
-          image: secureUrl,
-          userId: userId,
-        };
-
         if (eventId) {
           // If eventId is present, we're in editing mode
           // Send a PUT or PATCH request to update the event
@@ -100,84 +170,35 @@ const handleSubmit = async (e) => {
         setEventCity("");
         setTicketPrice("");
         setEventDescription("");
-        setEventTags("");
         setEventImage(null);
         setHasNewImage(false); // Reset hasNewImage state after submission
+        setSelectedCategory("");
 
         // Navigate to the profile page or any other desired location after successful creation
         navigate("/profile");
       } catch (error) {
-        console.error("Error uploading image or adding/editing event:", error);
+        console.error("Error adding/editing event:", error);
       }
-    } else {
-      // Image is not uploaded, show an error or handle it as needed
-      console.error("Image is required.");
     }
-  } else {
-    // If no new image is selected, proceed with form submission without image upload
+  };
 
-    // Create the event data object
-    const eventData = {
-      title: eventName,
-      date: eventDate,
-      location: eventLocation,
-      city: eventCity,
-      ticketPrice,
-      details: eventDescription,
-      tags: eventTags.split(",").map((tag) => tag.trim()),
-      image: previousEventImage, // Use the previous image URL for the event data
-      userId: userId,
-    };
+  const formattedEventDate = (dateString) => {
+    const date = new Date(dateString);
+    const offsetInMinutes = date.getTimezoneOffset();
+    const adjustedDate = new Date(date.getTime() - offsetInMinutes * 60000);
 
-    try {
-      if (eventId) {
-        // If eventId is present, we're in editing mode
-        // Send a PUT or PATCH request to update the event
-        await axios.put(`http://localhost:3636/events/${eventId}`, eventData);
-      } else {
-        // Create the event on the server
-        await axios.post("http://localhost:3636/events", eventData);
-      }
+    // Add 3 hours to the adjustedDate
+    adjustedDate.setHours(adjustedDate.getHours() - 3);
 
-      // Reset form fields after successful event creation
-      setEventName("");
-      setEventDate("");
-      setEventLocation("");
-      setEventCity("");
-      setTicketPrice("");
-      setEventDescription("");
-      setEventTags("");
-      setEventImage(null);
-      setHasNewImage(false); // Reset hasNewImage state after submission
+    // Convert the adjustedDate to the format "YYYY-MM-DDTHH:mm"
+    const year = adjustedDate.getFullYear();
+    const month = String(adjustedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(adjustedDate.getDate()).padStart(2, "0");
+    const hours = String(adjustedDate.getHours()).padStart(2, "0");
+    const minutes = String(adjustedDate.getMinutes()).padStart(2, "0");
 
-      // Navigate to the profile page or any other desired location after successful creation
-      navigate("/profile");
-    } catch (error) {
-      console.error("Error adding/editing event:", error);
-    }
-  }
-};
-
-
-const formattedEventDate = (dateString) => {
-  const date = new Date(dateString);
-  const offsetInMinutes = date.getTimezoneOffset();
-  const adjustedDate = new Date(date.getTime() - offsetInMinutes * 60000);
-
-  // Add 3 hours to the adjustedDate
-  adjustedDate.setHours(adjustedDate.getHours() - 3);
-
-  // Convert the adjustedDate to the format "YYYY-MM-DDTHH:mm"
-  const year = adjustedDate.getFullYear();
-  const month = String(adjustedDate.getMonth() + 1).padStart(2, "0");
-  const day = String(adjustedDate.getDate()).padStart(2, "0");
-  const hours = String(adjustedDate.getHours()).padStart(2, "0");
-  const minutes = String(adjustedDate.getMinutes()).padStart(2, "0");
-
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
-
-
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
 
   return (
     <div className="formContainer">
@@ -200,11 +221,11 @@ const formattedEventDate = (dateString) => {
           <div className="formInput-group">
             <label>Event Date and Time</label>
             <input
-          type="datetime-local"
-          value={formattedEventDate(eventDate)}
-          onChange={(e) => setEventDate(e.target.value)}
-          lang="en"
-        />
+              type="datetime-local"
+              value={formattedEventDate(eventDate)}
+              onChange={(e) => setEventDate(e.target.value)}
+              lang="en"
+            />
           </div>
 
           <div className="formInput-group">
@@ -251,33 +272,41 @@ const formattedEventDate = (dateString) => {
             />
           </div>
 
-          <div className="formInput-group">
-            <label>Tags</label>
-            <input
-              type="text"
-              name="eventTags"
-              value={eventTags}
-              onChange={(e) => setEventTags(e.target.value)}
-              placeholder="Enter Tags (comma separated)"
-            />
-          </div>
+            <div className="formInput-group">
+              <label>Category</label>
+              <select
+  name="eventCategory"
+  value={selectedCategory}
+  onChange={(e) =>
+
+   setSelectedCategory(e.target.value)}
+>
+  <option value="">Select a Category</option>
+  {categories.map((category) => (
+    <option key={category} value={category}>
+      {category}
+    </option>
+  ))}
+</select>
+            </div>
+
 
           <div className="formInput-group">
             <label>Upload Image</label>
-            <input
-              type="file"
-              name="eventImage"
-              onChange={handleImageUpload}
-            />
+            <input type="file" name="eventImage" onChange={handleImageUpload} />
           </div>
 
           {eventImage && (
-    <img
-      className="uploadedImage"
-      src={typeof eventImage === 'string' ? eventImage : URL.createObjectURL(eventImage)}
-      alt="Uploaded Event"
-    />
-)}
+            <img
+              className="uploadedImage"
+              src={
+                typeof eventImage === "string"
+                  ? eventImage
+                  : URL.createObjectURL(eventImage)
+              }
+              alt="Uploaded Event"
+            />
+          )}
 
           <div className="submitBtn-wrap">
             <button id="submitButton" type="submit">

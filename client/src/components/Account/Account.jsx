@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
-import UserContext from "../../Context/context"
-import { useParams } from 'react-router-dom';
+import UserContext from "../../Context/context";
+import { useParams } from "react-router-dom";
 import defaultUserImage from "../../assets/images/default-user-icon.jpg";
 import { useNavigate } from "react-router-dom";
 
@@ -15,15 +15,16 @@ function Account() {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
   const [changes, setChanges] = useState({});
+  const [eventsCount, setEventsCount] = useState(0);
 
-  
- 
-  const [userImage, setUserImage] = useState(() => localStorage.getItem("userImage") || null);
+  const [userImage, setUserImage] = useState(
+    () => localStorage.getItem("userImage") || null
+  );
   const [loading, setLoading] = useState(true);
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  
+
   const [hasNewImage, setHasNewImage] = useState(false);
   console.log("User from context:", user);
 
@@ -32,9 +33,9 @@ function Account() {
       fileInputRef.current.click(); // Simulate a click on the file input
     }
   };
-  const handleGoToProfile= ()=>{
-    navigate("/profile")
-  }
+  const handleGoToProfile = () => {
+    navigate("/profile");
+  };
 
   const handleImageUpload = async (e) => {
     const imageFile = e.target.files[0];
@@ -42,33 +43,46 @@ function Account() {
     if (imageFile) {
       setUserImage(URL.createObjectURL(imageFile));
       setHasNewImage(true);
-  
+
       try {
         // Upload the image to the backend using the axios.post method
         const formData = new FormData();
         formData.append("image", imageFile);
-  
+
         // Upload the image to Cloudinary using the /uploads route
-        const response = await axios.post("http://localhost:3636/uploads", formData);
+        const response = await axios.post(
+          "http://localhost:3636/uploads",
+          formData
+        );
         const imageUrl = response.data.secureUrl; // Get the secure URL of the uploaded image
-  
+
         // Use the received image URL to update the user's profile picture
         // by making another POST request to the /profilePic route
         await axios.post("http://localhost:3636/profilePic", {
           userId: user._id, // Assuming the user object has a property '_id' that represents the user ID
           profilePic: imageUrl, // Pass the secure URL as the profilePic
         });
-  
+
         // Update the userImage state with the received image URL
         setUserImage(imageUrl);
-        console.log('Image URL set:', imageUrl);
+        console.log("Image URL set:", imageUrl);
       } catch (error) {
         console.error("Error uploading image:", error);
       }
     }
   };
-  
 
+  const fetchEventsCount = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3636/events/user/${userId}`
+      );
+      const events = response.data;
+      setEventsCount(events.length);
+    } catch (error) {
+      console.error("Error fetching events count:", error);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -77,68 +91,130 @@ function Account() {
     }
     const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get(`http://localhost:3636/user/${userId}`);
+        const response = await axios.get(
+          `http://localhost:3636/user/${userId}`
+        );
         setUser(response.data.user);
         setUserImage(response.data.user.profilePic);
-        setLoading(false);  // Set loading to false once data is fetched
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setLoading(false);  // Also set loading to false on error for good UX
+        setLoading(false); // Also set loading to false on error for good UX
       }
     };
     if (user && user.profilePic) {
       setUserImage(user.profilePic);
-   }
-    
-    fetchUserData(userId);
-    console.log("Fetched user data:", user);
+    }
 
+    fetchUserData(userId);
+    fetchEventsCount(userId);
+    console.log("events number", eventsCount);
+    console.log("Fetched user data:", user);
   }, [user]);
 
   const fileInputRef = useRef(null);
 
   const handleUpdateClick = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     const updatedData = {
-        userId: user._id
+      userId: user._id,
     };
 
     if (username !== user?.username && username.trim() !== "") {
-        updatedData.username = username;
+      //keeping the username to the input field and also be able to make changes
+      updatedData.username = username;
     }
     if (email !== user?.email && email.trim() !== "") {
-        updatedData.email = email;
+      updatedData.email = email;
     }
-    if (password.trim() !== "") {  // Only include this if the password is changed!
-        updatedData.password = password; 
+    if (password.trim() !== "") {
+      // Only include this if the password is changed!
+      updatedData.password = password;
     }
 
     try {
-        const response = await axios.put(`http://localhost:3636/user/${user._id}`, updatedData, { headers }); 
+      const response = await axios.put(
+        `http://localhost:3636/user/${user._id}`,
+        updatedData,
+        { headers }
+      );
 
-        if (response.status === 200) {
-            console.log('User updated:', response.data);
-            setUser(response.data);  // Update the user in the context with the returned updated user
-            setPassword(""); // Clear the password field
-
-        } else {
-            console.error('Error updating user:', response.data.msg || 'Unknown error');
-        }
+      if (response.status === 200) {
+        console.log("User updated:", response.data);
+        setUser(response.data); // Update the user in the context with the returned updated user
+        setPassword(""); // Clear the password field
+      } else {
+        console.error(
+          "Error updating user:",
+          response.data.msg || "Unknown error"
+        );
+      }
     } catch (error) {
-        console.error('Error:', error);
+      console.error("Error:", error);
     }
-};
+  };
+
+  const handleDeleteClick = async () => {
+    // Show confirmation dialog
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    // If the user does not confirm the delete action, simply return
+    if (!isConfirmed) {
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3636/user/${user._id}`,
+        {
+          headers: headers,
+          data: { userId: user._id }, // Sending userId in request body for backend check
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("User deleted:", response.data);
+        // Clear user from local context or state
+        setUser(null);
+        // Clear token
+        localStorage.removeItem("token");
+        // Redirect to login or home page
+        window.location = "/login"; // Change this to your login or home route
+      } else {
+        console.error(
+          "Error deleting user:",
+          response.data.msg || "Unknown error"
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="user-card-container">
       <div className="user-card">
+      <h3 className="user-name">{user?.username}</h3>
+
         <div className="user-image-container">
           {userImage ? (
             <img
-              src={typeof userImage === "string" ? userImage : URL.createObjectURL(userImage)}
+              src={
+                typeof userImage === "string"
+                  ? userImage
+                  : URL.createObjectURL(userImage)
+              }
               alt="User image"
               className="user-image"
               onClick={handleImageClick} // Add click event to trigger the file input
@@ -148,7 +224,11 @@ function Account() {
               className="default-user-image"
               onClick={handleImageClick} // Add click event to trigger the file input
             >
-              <img src={defaultUserImage} alt="Default user image" className="user-image" />
+              <img
+                src={defaultUserImage}
+                alt="Default user image"
+                className="user-image"
+              />
               {/*<span className="upload-text">Change Profile Picture</span>*/}
             </div>
           )}
@@ -162,49 +242,54 @@ function Account() {
           />
         </div>
         <div className="user-details">
-          <h3 className="user-name">{user?.username}</h3>
           <div className="user-inputs">
-          <input
-  type="text"
-  placeholder="Username"
-  className="user-input"
-  value={username}
-  onChange={handleUsernameChange}
-/>
-<input
-  type="email"
-  placeholder="Email"
-  className="user-input"
-  value={email}
-  onChange={handleEmailChange}
-/>
-<input
-  type="password"
-  placeholder="Enter new password if you want to change it"
-  className="user-input"
-  value={password}
-  onChange={handlePasswordChange}
-/>
-        </div>
+            <input
+              type="text"
+              placeholder="Username"
+              className="user-input"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="user-input"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            <input
+              type="password"
+              placeholder="Enter new password if you want to change it"
+              className="user-input"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
 
           <div className="user-stats-container">
             <div className="user-stat">
               <p className="user-stat-label">Events Created</p>
-              <p className="user-stat-value">41</p>
+              <p className="user-stat-value">{eventsCount}</p>
             </div>
-            <div className="user-stat">
+            {/* <div className="user-stat">
               <p className="user-stat-label">Followers</p>
               <p className="user-stat-value">976</p>
             </div>
             <div className="user-stat">
               <p className="user-stat-label">Rating</p>
               <p className="user-stat-value">8.5</p>
-            </div>
+            </div> */}
           </div>
           <div className="user-buttons">
-            <button className="user-button-profile"onClick={handleGoToProfile}>Go to Profile</button>
-            <button className="user-button-update" onClick={handleUpdateClick}>Update</button>
-            <button className="user-button-delete">Delete</button>
+            <button className="user-button-profile" onClick={handleGoToProfile}>
+              Go to Profile
+            </button>
+            <button className="user-button-update" onClick={handleUpdateClick}>
+              Update
+            </button>
+            <button className="user-button-delete" onClick={handleDeleteClick}>
+              Delete
+            </button>
           </div>
         </div>
       </div>

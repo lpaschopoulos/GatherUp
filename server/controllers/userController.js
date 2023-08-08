@@ -69,8 +69,7 @@ const verifyUser = async (req, res) => {
 
 
 async function updateUserById(req, res) {
-  console.log('Params ID:', req.params.id);
-console.log('Body userId:', req.body.userId);
+
 
     if (req.params.id === req.body.userId) {
       if (req.body.password) {
