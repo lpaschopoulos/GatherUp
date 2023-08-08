@@ -24,16 +24,14 @@ const User = require("../models/user");
   });
 });
 
-router.post('/profilePic', upload.single('image'), async function (req, res) {
+router.post('/profilePic', async function (req, res) {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path);
-    const secureUrl = result.secure_url;
+    const { userId, profilePic } = req.body;
 
-    const userId = req.body.userId; // Extracting userId from the body of the request.
-    if (!userId) {
+    if (!userId || !profilePic) {
       return res.status(400).json({
         success: false,
-        message: "No user ID provided."
+        message: "Invalid request. Missing userId or profilePic.",
       });
     }
 
@@ -42,28 +40,29 @@ router.post('/profilePic', upload.single('image'), async function (req, res) {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found."
+        message: "User not found.",
       });
     }
 
     // Update the profilePic field and save the user object
-    user.profilePic = secureUrl;
+    user.profilePic = profilePic;
     await user.save();
 
     res.status(200).json({
       success: true,
       message: "Profile image uploaded and saved successfully!",
-      secureUrl: secureUrl
+      secureUrl: profilePic,
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
       success: false,
       message: "Error",
-      error: err.message
+      error: err.message,
     });
   }
 });
+
 
 
 module.exports = router;

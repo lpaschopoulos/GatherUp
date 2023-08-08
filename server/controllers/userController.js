@@ -69,14 +69,17 @@ const verifyUser = async (req, res) => {
 
 
 async function updateUserById(req, res) {
-    if (req.params._id === req.body.userId) {
+  console.log('Params ID:', req.params.id);
+console.log('Body userId:', req.body.userId);
+
+    if (req.params.id === req.body.userId) {
       if (req.body.password) {
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
       }
       try {
         const updatedUser = await User.findByIdAndUpdate(
-          req.params._id,
+          req.params.id,
           {
             $set: req.body,
           },
@@ -93,7 +96,7 @@ async function updateUserById(req, res) {
   
 
   async function deleteUserById(req, res) {
-    if (req.params._id === req.body.userId) {
+    if (req.params.id === req.body.userId) {
       try {
         await User.findByIdAndDelete(req.params._id);
         res.status(200).json("User has been deleted!");

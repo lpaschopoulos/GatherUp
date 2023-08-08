@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+
 import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
@@ -12,10 +14,22 @@ import "./App.css"
 
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-});
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Call the endpoint to get user data using the token:
+      axios.post("http://localhost:3636/user/verify", { token })
+        .then(response => {
+            console.log("User fetched from server:", response.data);
+            setLoggedInUser(response.data);
+        })
+        .catch(err => {
+            console.error("Failed to fetch user:", err);
+        });
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user: loggedInUser, setUser: setLoggedInUser }}>

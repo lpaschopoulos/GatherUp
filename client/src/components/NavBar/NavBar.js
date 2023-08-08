@@ -49,6 +49,7 @@ function NavBar() {
             />
             <Button
               variant="outline-success"
+              classname="search-icon"
               onClick={handleSearchClick}
               style={{ display: isSearchExpanded ? 'none' : 'flex' }}
             >
