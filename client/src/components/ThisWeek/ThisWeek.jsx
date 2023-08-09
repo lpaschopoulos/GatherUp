@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import "./ThisWeek.css"; // Import your CSS styles with -week suffix
-import LetsGoButton from "../LetsGoButton/LetsGoButton";
+import LetsGoButton from "../Details/LetsGoButton";
 
 
 function ThisWeek({ events }) {
@@ -33,7 +33,7 @@ function ThisWeek({ events }) {
                                     <p><strong>Location:</strong> {event.location}</p>
                                     <p><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
                                     <div className="card-footer-week">
-                                        <button class="details-button">Details</button>
+                                        <button className="details-button">Details</button>
                                     </div>
                                 </div>
                             </div>

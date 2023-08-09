@@ -1,0 +1,58 @@
+.page-container-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;  /* 100% of the viewport height */
+}
+
+.container-detail {
+    width: 100%;
+    max-width: 1200px;  /* Adjust maximum width as necessary */
+    padding: 20px;
+    background-color: #ffffff;  /* A white background for the container */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);  /* A subtle shadow */
+    height: 200%;
+}
+
+.card-grid-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.card-detail {
+    display: flex;
+    flex-direction: row;  /* Makes content flow from left to right */
+    align-items: flex-start;  /* Align items to the top of the card */
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e1e1e1;  /* A light border around the card */
+    border-radius: 10px;  /* Rounded corners */
+}
+
+.card-img-top-detail {
+    flex: 0 0 30%;  /* The image takes up 30% of the card's width */
+    max-width: 30%;  /* Ensures the image doesn't stretch beyond 30% */
+    height: auto;
+    margin-right: 20px;  /* A margin to separate the image from the details */
+    border-radius: 10px;  /* Rounded corners for the image */
+}
+
+.card-body-detail {
+    flex: 1;  /* Takes up the rest of the card's width */
+    display: flex;
+    flex-direction: column;  /* Stacks the details vertically */
+    justify-content: center;  /* Centers the details vertically */
+}
+
+.card-title-detail {
+    font-size: 24px;
+    margin-bottom: 15px;  /* Space between the title and the details */
+}
+
+.card-text-detail {
+    margin-bottom: 10px;  /* Space between each line of details */
+    font-size: 16px;  /* Adjust as needed */
+}

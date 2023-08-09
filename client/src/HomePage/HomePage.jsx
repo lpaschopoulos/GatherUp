@@ -22,10 +22,10 @@ function HomePage() {
 
   return (
     <div className="section">
-      <div className="section-week">
+      <div className="section-month">
         <h2>Whats Hot</h2>
         <ul>
-          <ThisWeek events={events} />
+          <ThisMonth events={events} />
         </ul>
       </div>
 

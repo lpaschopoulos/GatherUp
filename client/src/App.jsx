@@ -11,6 +11,7 @@ import Form from "./components/Form/Form";
 import Account from "./components/Account/Account"
 import UserContext from './Context/context';
 import HomePage from "./HomePage/HomePage";
+import EventDetail from "./components/Details/EventDetail";
 import "./App.css"
 
 
@@ -47,6 +48,8 @@ function App() {
             <Route path="/account/:userId" element={<Account />} />
             <Route path="/create/:userId" element={<Form />} />
             <Route path="/edit-event/:eventId" element={<Form />} />
+            <Route path="/events/:eventId" element={<EventDetail/>} />
+
           </Routes>
         </div>
       </div>

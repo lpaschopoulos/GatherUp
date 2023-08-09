@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from 'react';
 import moment from "moment";
 import "./ThisMonth.css"; // Import your CSS styles with -month suffix
-import LetsGoButton from "../LetsGoButton/LetsGoButton";
+import LetsGoButton from "../Details/LetsGoButton";
+import DetailButton from "../Details/DetailButton";
 
 function ThisMonth({ events }) {
   const today = new Date();
@@ -11,6 +12,12 @@ function ThisMonth({ events }) {
     const eventDate = new Date(event.date);
     return eventDate >= today && eventDate <= endOfMonth;
   });
+
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleDetailButtonClick = (event) => {
+    setSelectedEvent(events);
+  };
 
   return (
     <div className="page-container-month">
@@ -31,7 +38,7 @@ function ThisMonth({ events }) {
                                 <p><strong>Location:</strong> {event.location}</p>
                                 <p><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
                                 <div className="card-footer-month">
-                                    <button class="details-button">Details</button>
+                                <DetailButton event={event} onClick={handleDetailButtonClick} />
                                 </div>
                             </div>
                         </div>
