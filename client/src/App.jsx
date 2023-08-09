@@ -10,6 +10,7 @@ import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Account from "./components/Account/Account"
 import UserContext from './Context/context';
+import HomePage from "./HomePage/HomePage";
 import "./App.css"
 
 
@@ -39,6 +40,7 @@ function App() {
         <NavBar />
         <div className="content">
           <Routes>
+          <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />

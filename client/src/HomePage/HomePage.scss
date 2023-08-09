@@ -1,0 +1,249 @@
+.section {
+
+  
+    h2 {
+      text-align: center;
+      font-size: 2rem; // Larger font size for headings
+      color: #333;    // Darker color
+      margin-bottom: 30px; // Space below the heading
+      border-bottom: 2px solid #ddd; // Line below the heading
+      padding-bottom: 10px;
+    }
+  
+    ul {
+      list-style-type: none; // Remove bullet points
+      padding: 0; // Reset default padding
+    }
+  }
+
+
+
+.section-week {
+    margin: 50px 0;
+
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: #ffffff; /* Text color for better visibility */
+  
+    h2 {
+        color:white;
+      text-align: left;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4); /* Subtle text shadow for emphasis */
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s forwards;
+        will-change: transform, opacity;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.1); /* Semi-transparent background for cards */
+        border-radius: 10px;
+        padding: 20px;
+  
+        &:hover {
+          transform: translateY(0);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+        }
+  
+        .event-card-content {
+          padding: 20px;
+  
+          h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+          }
+  
+          .event-card-date,
+          .event-card-location {
+            font-size: 1rem;
+            color: #aaa;
+          }
+  
+          .event-card-description {
+            font-size: 1rem;
+            margin-top: 10px;
+          }
+  
+          .event-card-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: #ffd854;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            &:hover {
+              background: #ffcc44;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+  .section-month {
+    margin: 50px 0;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      color: #ffffff;
+      text-align: left;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s forwards;
+        will-change: transform, opacity;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+  
+        &:hover {
+          transform: translateY(0);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+  
+        .event-card-content {
+          padding: 20px;
+  
+          h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+          }
+  
+          .event-card-date,
+          .event-card-location {
+            font-size: 1rem;
+            color: #aaa;
+          }
+  
+          .event-card-description {
+            font-size: 1rem;
+            margin-top: 10px;
+          }
+  
+          .event-card-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: #ffd854;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+  
+            &:hover {
+              background: #ffcc44;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .section-soon,
+  .section-city {
+    margin: 50px 0;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      color: #ffffff;
+      text-align: left;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s forwards;
+        will-change: transform, opacity;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+  
+        &:hover {
+          transform: translateY(0);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+  
+        .event-card-content {
+          padding: 20px;
+  
+          h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+          }
+  
+          .event-card-date,
+          .event-card-location {
+            font-size: 1rem;
+            color: #aaa;
+          }
+  
+          .event-card-description {
+            font-size: 1rem;
+            margin-top: 10px;
+          }
+  
+          .event-card-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: #ffd854;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+  
+            &:hover {
+              background: #ffcc44;
+            }
+          }
+        }
+      }
+    }
+  }
+  
