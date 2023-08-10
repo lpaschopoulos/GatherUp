@@ -21,6 +21,7 @@ const eventSchema = new mongoose.Schema({
   image: {
     type: String, // Store the image URL or file path
     required: true,
+    default:"",
   },
   date: {
     type: Date, // You can include a date field if you want to store event dates
@@ -35,7 +36,11 @@ const eventSchema = new mongoose.Schema({
     // enum: ['Art', 'Theater', 'Cinema', 'Concerts'], // Add your specific categories here
     required: true,
   },
-  userId: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+    required: true 
+},
   attendees: [{
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'

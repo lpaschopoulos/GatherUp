@@ -9,14 +9,18 @@ import Register from "./components/Register/Register";
 import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Account from "./components/Account/Account"
-import UserContext from './Context/context';
-import HomePage from "./HomePage/HomePage";
+import {UserContext, EventContext} from './Context/context';
+import HomePage from "./Pages/HomePage/HomePage";
 import EventDetail from "./components/Details/EventDetail";
+import Today from "./Pages/Today/Today";
+import AllEvents from "./Pages/AllEvents/AllEvents";
+import Tomorrow from "./Pages/Tomorrow/Tomorrow";
 import "./App.css"
 
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [events, setEvents] = useState([]); // state for events data
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -33,8 +37,18 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    axios.get("http://localhost:3636/events/")
+      .then(response => {
+        setEvents(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching events:", error);
+      });
+  }, []); // This effect runs once when App component mounts
   return (
     <UserContext.Provider value={{ user: loggedInUser, setUser: setLoggedInUser }}>
+      <EventContext.Provider value={events}> {/* Provide the events data */}
 
     <Router>
       <div className="App">
@@ -49,11 +63,17 @@ function App() {
             <Route path="/create/:userId" element={<Form />} />
             <Route path="/edit-event/:eventId" element={<Form />} />
             <Route path="/events/:eventId" element={<EventDetail/>} />
+            <Route path="/today" element={<Today/>}/>
+            <Route path="/tomorrow" element={<Tomorrow/>}/>
+
+            <Route path="/allevents" element={<AllEvents/>}/>
 
           </Routes>
         </div>
       </div>
     </Router>
+    </EventContext.Provider>
+
     </UserContext.Provider>
 
   );

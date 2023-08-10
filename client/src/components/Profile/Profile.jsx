@@ -6,11 +6,15 @@ import Username from "../Username/Username";
 import AttendingEventsList from "../AttendingList/AttendingList";
 import "./Profile.css";
 
+
+
 function Profile() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isChecked, setChecked] = useState(false);
+  const handleToggle = () => setChecked(prevState => !prevState);
 
 
   useEffect(() => {
@@ -37,6 +41,10 @@ function Profile() {
     }
   }, [navigate]);
 
+
+
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -57,13 +65,13 @@ function Profile() {
         )}
       </div>
       <div className="user-info">
-        <Username userInfo={user} />
+      <Username userInfo={user} isChecked={isChecked} onToggle={handleToggle} />
       </div>
+      
       <div className="page-container">
         {user && (
           <>
-            <CardsProfile userId={user._id} />
-            <AttendingEventsList userId={user._id} />
+            { isChecked ? <AttendingEventsList userId={user._id} /> : <CardsProfile userId={user._id} />}
           </>
         )}
       </div>

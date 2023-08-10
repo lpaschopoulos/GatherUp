@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
-import UserContext from "../../Context/context";
+import {UserContext} from "../../Context/context";
 import { useParams } from "react-router-dom";
 import defaultUserImage from "../../assets/images/default-user-icon.jpg";
 import { useNavigate } from "react-router-dom";

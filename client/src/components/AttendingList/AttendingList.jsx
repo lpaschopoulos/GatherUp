@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import { Link } from 'react-router-dom';
 
 function AttendingEventsList({ userId }) {
     const [attendingEvents, setAttendingEvents] = useState([]);
@@ -42,6 +43,8 @@ function AttendingEventsList({ userId }) {
             <div className="card-grid">
               {attendingEvents.map((event) => (
                 <div key={event._id} className="card custom-card">
+                          <Link to={`/events/${event._id}`}>
+
                   {typeof event.image === "string" && (
                     <img src={event.image} alt={`img-${event._id}`} className="card-img-top" />
                   )}
@@ -55,8 +58,10 @@ function AttendingEventsList({ userId }) {
                     <p className="card-text"><strong>Location:</strong> {event.location}</p>
                     <p className="card-text"><strong>Details:</strong> {event.description}</p>
                     <p className="card-text"><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
-                    <p className="card-text"><strong>Tags:</strong> {event.tags}</p>
+                    <p className="card-text-detail"><strong>Category:</strong> {event.categories}</p>
                   </div>
+                  </Link>
+
                   <div className="card-footer">
                   <DeleteButton onDelete={()=>unattendEvent(event._id)}/>
 

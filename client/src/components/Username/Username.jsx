@@ -1,15 +1,36 @@
 import "./Username.css"
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../../Context/context';
+import { UserContext } from "../../Context/context";
 
-
-
-const Username = ({userInfo}) => {
+const Username = ({userInfo, isChecked, onToggle}) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
-
+  function ToggleSwitch({ isChecked, onToggle }) {
+    return (
+        <>
+            <input 
+                type="checkbox" 
+                name="check-toggle" 
+                hidden 
+                checked={isChecked} 
+                onChange={onToggle}
+            />
+            <label 
+                onClick={onToggle} 
+                className="toggle"
+            >
+                Events
+                <div className="toggle__switch">
+                    <div className={`toggle__circle ${isChecked ? "checked" : ""}`}></div>
+                </div>
+                Attend
+            </label>
+        </>
+    );
+  }
+  
   function logout(){
     localStorage.removeItem("token")
     setUser(null);
@@ -29,8 +50,15 @@ const Username = ({userInfo}) => {
 
   return (
     <div className="button-container">
-        <h1 className="username">Welcome <span className="username-color">{userInfo?.username}</span></h1>
-        <div className="buttons-row">
+      
+<h1 className="username">
+    Welcome
+    <div className="username-color">
+        {userInfo?.username}
+
+    </div>
+</h1>        <div className="buttons-row">
+  
       <button className="buttonU Explore" onClick={handleCreateEvent}>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="actionbuttons">
           <path
@@ -65,7 +93,10 @@ const Username = ({userInfo}) => {
 </svg>
         Logout
       </button>
+      
     </div>
+    <ToggleSwitch isChecked={isChecked} onToggle={onToggle} />
+
     </div>
   );
 };

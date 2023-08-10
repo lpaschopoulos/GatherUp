@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ThisWeek from "../components/ThisWeek/ThisWeek";
-import ThisMonth from "../components/ThisMonth/ThisMonth";
-import ComingSoon from "../components/ComingSoon/ComingSoon";
-import CityEvents from "../components/CityEvents/CityEvents";
+import ThisMonth from "../../components/ThisMonth/ThisMonth";
+import ComingSoon from "../../components/ComingSoon/ComingSoon";
+import CityEvents from "../../components/CityEvents/CityEvents";
 import "./HomePage.scss"
 function HomePage() {
   const [events, setEvents] = useState([]);
@@ -26,13 +25,6 @@ function HomePage() {
         <h2>Whats Hot</h2>
         <ul>
           <ThisMonth events={events} />
-        </ul>
-      </div>
-
-      <div className="section-month">
-        <h2>What's on This Month</h2>
-        <ul>
-        <ThisMonth events={events}/>
         </ul>
       </div>
 

@@ -26,9 +26,12 @@ const userSignup = async (req, res) => {
         res.json({ token });
 
     } catch (error) {
-        console.log("Error:", error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
+      if (error.code === 11000) {
+          return res.status(400).json({ msg: "Email or username already in use" });
+      }
+      console.log("Error:", error);
+      res.status(500).json({ msg: "Internal Server Error" });
+  }
 }
 
 

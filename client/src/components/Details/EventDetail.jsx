@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'; // <-- useContex
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import LetsGoButton from "./LetsGoButton";
-import UserContext from '../../Context/context';
+import {UserContext} from '../../Context/context';
 
 import "./EventDetail.css"
 import BuyTicket from './BuyTicket';
@@ -57,6 +57,7 @@ function EventDetail() {
               <p className="card-text-detail"><strong>Ticket Price: €</strong> {events.ticketPrice}</p>
               <p className="card-text-detail"><strong>Category:</strong> {events.categories}</p>
             </div>
+
             <div className="card-footer-detail">
               <LetsGoButton eventId={eventId} userId={userId} />
               <BuyTicket/>

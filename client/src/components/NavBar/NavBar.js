@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi'; // Import the search icon
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,8 +7,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, } from 'react-router-dom';
-import UserContext from '../../Context/context';
-
+import axios from "axios";
+import { UserContext } from "../../Context/context";
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar() {
@@ -16,6 +17,19 @@ function NavBar() {
 
   const { user } = useContext(UserContext);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3636/events/")  // Replace with your actual API endpoint
+      .then(response => {
+        setEvents(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
+
+  
   const handleSearchClick = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
@@ -40,11 +54,11 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features">Events</Nav.Link>
+            <Nav.Link as={Link} to="/allevents">Events</Nav.Link>
             <Nav.Link href="#pricing">Tickets</Nav.Link>
             <NavDropdown title="Its Happening" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Today</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Tomorrow</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/today">Today</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/tomorrow">Tomorrow</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Upcoming Events</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Near You</NavDropdown.Item>

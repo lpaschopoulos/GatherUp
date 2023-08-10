@@ -16,17 +16,36 @@
     min-height: 200px; /* Minimum height for the container */
   }
   
-  /* Style for the username text */
-  .username {
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;    /* make sure the container takes the full width */
+    
+}
+
+
+
+.username {
     font-size: 24px;
     font-weight: bold;
     color: #000000;
-    justify-self: center;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;    /* make sure the username takes the full width */
+}
 
-  .username-color {
-    color: #6001ce; /* Replace #FF0000 with the color you want */
-  }
+.username-color {
+    color: #6001ce;
+    padding: 10px;
+    text-align: center; /* center the text inside the block */
+    margin-bottom: 1px;
+}
+
+
   
 
 
@@ -35,9 +54,13 @@
     display: flex;
     flex-direction: row; /* Align buttons side by side */
     justify-content: center; /* Center buttons horizontally within the container */
+    margin:auto;
   }
   
-  
+  .button-container{
+padding-bottom: 10px;
+  }
+
   
     .buttonU {
     background-color: #e4e4e4;
@@ -121,3 +144,4 @@
     fill: #e4e4e4;
   }
   
+

@@ -1,7 +1,12 @@
+
+
+
+
 .App {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Use height instead of min-height */
+
 }
 .content {
   

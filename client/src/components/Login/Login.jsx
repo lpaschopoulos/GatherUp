@@ -5,7 +5,7 @@ import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCo
 import "./Login.css";
 import logoImage from '../../assets/images/gathering-for-logo.jpg';
 import logoImages from '../../assets/images/location-map-marker-icons-icon.png';
-import UserContext from "../../Context/context"
+import {UserContext} from "../../Context/context"
 
 function Login() {
   const navigate = useNavigate();
