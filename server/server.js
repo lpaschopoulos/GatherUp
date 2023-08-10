@@ -22,6 +22,7 @@ app.get("/", homePageController); // Display home page
 app.use(eventRouter);
 
 
+
 const PORT = 3636;
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}...`);

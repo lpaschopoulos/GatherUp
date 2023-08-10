@@ -36,7 +36,10 @@ const eventSchema = new mongoose.Schema({
     required: true,
   },
   userId: String,
-  // You can add more fields like organizer information, etc.
+  attendees: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User'
+}],
 });
 
 // Create a model based on the schema

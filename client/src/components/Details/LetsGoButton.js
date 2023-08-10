@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'; 
 import SimplePopup from '../SimplePopup/SimplePopup';
+import axios from "axios";
 
-function LetsGoButton() {
+function LetsGoButton({ eventId, userId }) {
     const [showPopup, setShowPopup] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null); 
 
@@ -13,14 +14,23 @@ function LetsGoButton() {
         };
     }, [timeoutId]);
 
-    const handleLetsGoClick = () => {
-        setShowPopup(true);
-
-        const idt = setTimeout(() => {
-            setShowPopup(false);
-        }, 3000);
-        setTimeoutId(idt);
+    const handleLetsGoClick = async () => {
+        console.log("Button clicked!"); // check if the function is being triggered
+        try {
+            const response = await axios.post(`http://localhost:3636/user/${userId}/attend/${eventId}`);
+            console.log("Response:", response); // inspect the response
+            // Display success message 
+            setShowPopup(true);
+            const idt = setTimeout(() => {
+                setShowPopup(false);
+            }, 3000);
+            setTimeoutId(idt);
+        } catch (error) {
+            console.error("Error during axios call:", error); // detailed error logging
+        }
     };
+    
+    
 
     return (
         <div>
