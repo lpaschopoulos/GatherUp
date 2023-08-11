@@ -30,11 +30,7 @@ function EventDetail() {
     return <div>Loading...</div>;
   }
 
-  if (!user || !user._id) {
-    return <div>Please login to view details.</div>;
-  }
 
-  const userId = user._id;
 
   return (
     <div className="page-container-detail">
@@ -59,9 +55,9 @@ function EventDetail() {
             </div>
 
             <div className="card-footer-detail">
-              <LetsGoButton eventId={eventId} userId={userId} />
-              <BuyTicket/>
-            </div>
+  {user && user._id && <LetsGoButton eventId={eventId} userId={user._id} />}
+  <BuyTicket/>
+</div>
           </div>
         </div>
       </div>
