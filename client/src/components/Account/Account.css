@@ -78,6 +78,7 @@
 .user-inputs {
   display: flex;
   flex-direction: column;
+  margin-top:15px;
 }
 
 .user-input {
@@ -167,8 +168,7 @@
   display: inline-block;
 }
 .user-image {
-
-  cursor: pointer;
+ cursor: pointer;
 }
 
 /*.upload-text {

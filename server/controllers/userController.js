@@ -72,35 +72,55 @@ const verifyUser = async (req, res) => {
 
 
 async function updateUserById(req, res) {
+  const { userId, username, email, password } = req.body;
 
-
-    if (req.params.id === req.body.userId) {
-      if (req.body.password) {
-        const salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
-      }
-      try {
-        const updatedUser = await User.findByIdAndUpdate(
-          req.params.id,
-          {
-            $set: req.body,
-          },
-          { new: true }
-        );
-        res.status(200).json(updatedUser);
-      } catch (err) {
-        res.status(500).json({msg: "Internal Server Error"});
-      }
-    } else {
-      res.status(401).json("You can update only your account!");
-    }
+  if (req.params.id !== userId) {
+    return res.status(401).json("You can update only your account!");
   }
+
+  try {
+      // If updating username, check if it already exists
+      if (username) {
+          const existingUserWithUsername = await User.findOne({ username });
+          if (existingUserWithUsername && String(existingUserWithUsername._id) !== userId) {
+              return res.status(400).json({ msg: "Username is already in use." });
+          }
+      }
+
+      // If updating email, check if it already exists
+      if (email) {
+          const existingUserWithEmail = await User.findOne({ email });
+          if (existingUserWithEmail && String(existingUserWithEmail._id) !== userId) {
+              return res.status(400).json({ msg: "Email is already in use." });
+          }
+      }
+
+      // If updating password, hash it
+      if (password) {
+          const salt = await bcrypt.genSalt(10);
+          req.body.password = await bcrypt.hash(password, salt);
+      }
+
+      // Now update the user
+      const updatedUser = await User.findByIdAndUpdate(
+          req.params.id,
+          { $set: req.body },
+          { new: true }
+      );
+
+      res.status(200).json(updatedUser);
+
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({msg: "Internal Server Error"});
+  }
+}
   
 
   async function deleteUserById(req, res) {
     if (req.params.id === req.body.userId) {
       try {
-        await User.findByIdAndDelete(req.params._id);
+        await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User has been deleted!");
       } catch (err) {
         console.log(err);
@@ -130,7 +150,21 @@ async function updateUserById(req, res) {
       });
     }
   }
-  
+
+// Fetch usernames of event creators based on user IDs
+async function getUsernames(req, res)  {
+  try {
+    const { userIds } = req.body;
+
+    const usernames = await User.find({ _id: { $in: userIds } }, 'username');
+
+    res.status(200).json(usernames);
+  } catch (error) {
+    console.error('Error fetching usernames:', error);
+    res.status(500).json({ error: 'An error occurred while fetching usernames' });
+  }
+};
+
 
 module.exports ={
     userSignup,
@@ -139,4 +173,5 @@ module.exports ={
     updateUserById,
     deleteUserById,
     findById,
+    getUsernames,
 };

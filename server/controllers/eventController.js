@@ -91,7 +91,7 @@ const searchByCity = async (req, res) => {
 
 const getAllCategories = (req, res) => {
   try {
-    const predefinedCategories = ['Art', 'Theater', 'Cinema', 'Concerts'];
+    const predefinedCategories = ['Art', 'Theater', 'Cinema', 'Concerts','MusicFest', 'Training', 'Seminars'];
     res.status(200).json(predefinedCategories);
   } catch (error) {
     console.error('Error fetching categories:', error);

@@ -28,6 +28,8 @@ function Account() {
   const [hasNewImage, setHasNewImage] = useState(false);
   console.log("User from context:", user);
 
+  
+
   const handleImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click(); // Simulate a click on the file input
