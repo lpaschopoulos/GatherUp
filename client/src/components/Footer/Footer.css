@@ -1,10 +1,22 @@
 .footerposition {
-  /*min-height:1px;*/
-  position:relative;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #343a40;
   color: white;
   text-align: center;
+}
+
+.text-center .p-3{
+  background-color: rgba(32, 8, 32, 0.3) !important;  
+  transform: none!important;    /* If the button scales or changes size due to a transform */
+  border: none!important;  
+}
+
+
+.m-1 {
+  width: 50px!important;             
+  height: 40px!important;
+  max-height: 40px!important;               
+  transform: none!important;         
+  box-sizing: border-box!important;   
 }

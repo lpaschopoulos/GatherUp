@@ -71,116 +71,65 @@ function Form({ addNewEvent }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (hasNewImage) {
-      // If a new image is selected, proceed with image upload and form submission
-
-      if (eventImage) {
-        // Image is uploaded, proceed with form submission and image upload
+  
+    let secureUrl = previousEventImage;
+  
+    // If a new image is selected, upload it
+    if (hasNewImage && eventImage) {
+      try {
         const formData = new FormData();
         formData.append("image", eventImage);
-
-        try {
-          // Upload the image to Cloudinary or your desired server
-          const response = await axios.post(
-            "http://localhost:3636/uploads",
-            formData
-          );
-          const secureUrl = response.data.secureUrl;
-
-          // Create the event data object
-          const eventData = {
-            title: eventName,
-            date: eventDate,
-            location: eventLocation,
-            city: eventCity,
-            ticketPrice,
-            details: eventDescription,
-            image: secureUrl,
-            userId: userId,
-            category: selectedCategory,
-          };
-          console.log("Event Data:", eventData);
-          if (eventId) {
-            // If eventId is present, we're in editing mode
-            // Send a PUT or PATCH request to update the event
-            await axios.put(
-              `http://localhost:3636/events/${eventId}`,
-              eventData
-            );
-          } else {
-            // Create the event on the server
-            await axios.post("http://localhost:3636/events", eventData);
-          }
-
-          // Reset form fields after successful event creation
-          setEventName("");
-          setEventDate("");
-          setEventLocation("");
-          setEventCity("");
-          setTicketPrice("");
-          setEventDescription("");
-          setEventImage(null);
-          setHasNewImage(false); // Reset hasNewImage state after submission
-          setSelectedCategory("");
-
-          // Navigate to the profile page or any other desired location after successful creation
-          navigate("/profile");
-        } catch (error) {
-          console.error(
-            "Error uploading image or adding/editing event:",
-            error
-          );
-        }
-      } else {
-        // Image is not uploaded, show an error or handle it as needed
-        console.error("Image is required.");
-      }
-    } else {
-      // If no new image is selected, proceed with form submission without image upload
-
-      // Create the event data object
-      const eventData = {
-        title: eventName,
-        date: eventDate,
-        location: eventLocation,
-        city: eventCity,
-        ticketPrice,
-        details: eventDescription,
-        image: previousEventImage, // Use the previous image URL for the event data
-        userId: userId,
-        category: selectedCategory,
-
-      };
-
-      try {
-        if (eventId) {
-          // If eventId is present, we're in editing mode
-          // Send a PUT or PATCH request to update the event
-          await axios.put(`http://localhost:3636/events/${eventId}`, eventData);
-        } else {
-          // Create the event on the server
-          await axios.post("http://localhost:3636/events", eventData);
-        }
-
-        // Reset form fields after successful event creation
-        setEventName("");
-        setEventDate("");
-        setEventLocation("");
-        setEventCity("");
-        setTicketPrice("");
-        setEventDescription("");
-        setEventImage(null);
-        setHasNewImage(false); // Reset hasNewImage state after submission
-        setSelectedCategory("");
-
-        // Navigate to the profile page or any other desired location after successful creation
-        navigate("/profile");
+  
+        const response = await axios.post("http://localhost:3636/uploads", formData);
+        secureUrl = response.data.secureUrl;
       } catch (error) {
-        console.error("Error adding/editing event:", error);
+        console.error("Error uploading image:", error);
+        return; // If there's an error uploading the image, we shouldn't proceed with the event creation/editing.
       }
+    } else if (hasNewImage && !eventImage) {
+      console.error("Image is required.");
+      return;
+    }
+  
+    const eventData = {
+      title: eventName,
+      date: eventDate,
+      location: eventLocation,
+      city: eventCity,
+      ticketPrice,
+      details: eventDescription,
+      image: secureUrl,
+      userId: userId,
+      category: selectedCategory,
+    };
+  
+    try {
+      if (eventId) {
+        // Edit existing event
+        await axios.put(`http://localhost:3636/events/${eventId}`, eventData);
+      } else {
+        // Create new event
+        await axios.post("http://localhost:3636/events", eventData);
+      }
+  
+      // Reset form fields after successful event creation/editing
+      setEventName("");
+      setEventDate("");
+      setEventLocation("");
+      setEventCity("");
+      setTicketPrice("");
+      setEventDescription("");
+      setEventImage(null);
+      setHasNewImage(false);
+      setSelectedCategory("");
+  
+      navigate("/profile");
+  
+    } catch (error) {
+      console.error("Error adding/editing event:", error);
     }
   };
+  
 
   const formattedEventDate = (dateString) => {
     const date = new Date(dateString);

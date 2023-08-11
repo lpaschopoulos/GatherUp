@@ -8,6 +8,14 @@
   border-radius: 20px;
 }
 
+.card-img-top-week {
+  width: 100%; /* This will make the image take up the full width of its container */
+  height: auto; /* This will maintain the aspect ratio */
+  display: block; /* This will remove any white space below the image */
+  border-radius: 20px;
+}
+
+
 .temporary_text-soon {
   font-weight: bold;
   font-size: 24px;
@@ -64,7 +72,13 @@
 
 .card-soon:hover .card_content-soon {
   transform: translateY(0);
+
 }
+
+.card-soon:hover {
+  cursor: pointer;
+}
+
 
 .card-soon:hover .card_description-soon {
   opacity: 1;

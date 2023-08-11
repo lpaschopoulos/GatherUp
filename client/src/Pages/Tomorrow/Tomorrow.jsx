@@ -36,7 +36,11 @@ function Tomorrow() {
                                     </p>
                                     <p className="card-text-today"><strong>City:</strong> {event.city}</p>
                                     <p className="card-text-today"><strong>Location:</strong> {event.location}</p>
-                                    <p className="card-text-today"><strong>Details:</strong> {event.details}</p>
+                                    <p className="card-text-today">                    <strong>Details:</strong>{" "}
+                    {event.details.length > 100
+                      ? `${event.details.substring(0, 100)}... `
+                      : event.details}
+                  </p>{" "}
                                     <p className="card-text-today"><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
                                     <p className="card-text-today"><strong>Category:</strong> {event.categories}</p>
                                 </div>

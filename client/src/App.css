@@ -1,17 +1,17 @@
 
 
-
-
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Use height instead of min-height */
-
+min-height: 100vh;
 }
+.footer {
+  margin-top: auto;
+}
+
 .content {
-  
-  flex: 1; /* Let the content grow to fill the available space */
-  overflow-y: auto; /* Enable scrolling for the content when needed */
+  flex: 1;
+  overflow-y: auto;  
 }
 
 .App-logo {

@@ -15,6 +15,7 @@ import EventDetail from "./components/Details/EventDetail";
 import Today from "./Pages/Today/Today";
 import AllEvents from "./Pages/AllEvents/AllEvents";
 import Tomorrow from "./Pages/Tomorrow/Tomorrow";
+import UpcomingEvents from "./Pages/UpocomingEvents/UpcomingEvents";
 import "./App.css"
 
 
@@ -65,13 +66,14 @@ function App() {
             <Route path="/events/:eventId" element={<EventDetail/>} />
             <Route path="/today" element={<Today/>}/>
             <Route path="/tomorrow" element={<Tomorrow/>}/>
-
+            <Route path="/upcoming-events" element={<UpcomingEvents/>}/>
             <Route path="/allevents" element={<AllEvents/>}/>
 
           </Routes>
         </div>
       </div>
     </Router>
+    <Footer className="footer" />
     </EventContext.Provider>
 
     </UserContext.Provider>

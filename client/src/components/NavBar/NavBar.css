@@ -1,7 +1,10 @@
 .gatherup-link{
-  text-shadow: 3px 2px 3px purple, 0 0 2em rgb(235, 230, 235), 0 0 0.2em rgb(206, 203, 206);
-  font-weight: 600;
+  text-shadow: 3px 2px 3px purple, 0 0 1em rgb(235, 230, 235), 0 0 0.2em rgb(206, 203, 206);
+  font-weight: 640;
+
 }
+
+
 .account {
   margin-right: -200px;
   margin-left: 10px;
@@ -10,8 +13,9 @@
 }
 
 .custom-bg {
-  background-color: rgb(139, 54, 54);
+  background-color: rgba(32, 8, 32, 0.3);
 }
+
 
 
 .custom-bg .nav-link,
@@ -37,6 +41,7 @@
   flex: 1;
   max-width: 300px;
   transition: max-width 0.3s ease;
+  
 }
 
 
@@ -48,12 +53,19 @@
   max-height: 40px!important;
 }
 
-.search-button:focus{
-  max-height: 40px!important;
 
+
+
+.d-flex.expanded:focus {
+  height: 10px !important;
+  max-height: 10px !important;
+  transform: none !important;
+  box-sizing: border-box !important;
 }
 
-.search-icon:focus{
-  max-height: 1px!important;
-
+.form-control:focus {
+  height: 10px !important;
+  max-height: 10px !important;
+  transform: none !important;
+  box-sizing: border-box !important;
 }

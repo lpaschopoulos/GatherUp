@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import "./Register.css";
 import logoImage from '../../assets/images/gathering-for-logo.jpg';
 import logoImages from '../../assets/images/location-map-marker-icons-icon.png';
+
+
 
 function Register() {
   const navigate = useNavigate();

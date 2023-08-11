@@ -16,6 +16,7 @@ function Account() {
   const [password, setPassword] = useState("");
   const [changes, setChanges] = useState({});
   const [eventsCount, setEventsCount] = useState(0);
+  const [attendsCount, setAttendsCount] = useState(0);
 
   const [userImage, setUserImage] = useState(
     () => localStorage.getItem("userImage") || null
@@ -68,6 +69,13 @@ function Account() {
         // Update the userImage state with the received image URL
         setUserImage(imageUrl);
         console.log("Image URL set:", imageUrl);
+
+        setUser((prevUser) => ({
+          ...prevUser,
+          profilePic: imageUrl,
+        }));
+
+
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -85,6 +93,20 @@ function Account() {
       console.error("Error fetching events count:", error);
     }
   };
+
+
+  const fetchAttendsCount = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3636/user/${userId}/attending`
+      );
+      const attends = response.data;
+      setAttendsCount(attends.length);
+    } catch (error) {
+      console.error("Error fetching attends count:", error);
+    }
+};
+
 
   useEffect(() => {
     if (user) {
@@ -110,6 +132,7 @@ function Account() {
 
     fetchUserData(userId);
     fetchEventsCount(userId);
+    fetchAttendsCount(userId);
     console.log("events number", eventsCount);
     console.log("Fetched user data:", user);
   }, [user]);
@@ -273,14 +296,11 @@ function Account() {
               <p className="user-stat-label">Events Created</p>
               <p className="user-stat-value">{eventsCount}</p>
             </div>
-            {/* <div className="user-stat">
-              <p className="user-stat-label">Followers</p>
-              <p className="user-stat-value">976</p>
+             <div className="user-stat">
+              <p className="user-stat-label">Events Attending</p>
+              <p className="user-stat-value">{attendsCount}</p>
             </div>
-            <div className="user-stat">
-              <p className="user-stat-label">Rating</p>
-              <p className="user-stat-value">8.5</p>
-            </div> */}
+
           </div>
           <div className="user-buttons">
             <button className="user-button-profile" onClick={handleGoToProfile}>

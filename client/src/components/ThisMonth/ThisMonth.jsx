@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import moment from "moment";
 import "./ThisMonth.css"; // Import your CSS styles with -month suffix
-import LetsGoButton from "../Details/LetsGoButton";
 import DetailButton from "../Details/DetailButton";
 
 function ThisMonth({ events }) {
@@ -35,7 +34,6 @@ function ThisMonth({ events }) {
                             </div>
                             <div class="backSide-month">
                                 <p class="title-month">{event.title}</p>
-                                <p><strong>Location:</strong> {event.location}</p>
                                 <p><strong>Ticket Price: €</strong> {event.ticketPrice}</p>
                                 <div className="card-footer-month">
                                 <DetailButton event={event} onClick={handleDetailButtonClick} />

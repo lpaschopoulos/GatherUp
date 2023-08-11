@@ -9,6 +9,7 @@ import {
   MDBRow,
   MDBBtn,
 } from "mdb-react-ui-kit";
+
 const Footer = () => {
   // eslint-disable-next-line
   const handleGoToTop = () => {
@@ -17,234 +18,98 @@ const Footer = () => {
 
   return (
     <div className="footerposition">
-      <MDBFooter className="text-center" color="white" bgColor="dark">
-        <MDBContainer className="p-4">
-          <section className="mb-4">
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="facebook-f" />
-            </MDBBtn>
+      <MDBFooter className="text-center">
 
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="twitter" />
-            </MDBBtn>
-
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="google" />
-            </MDBBtn>
-
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="instagram" />
-            </MDBBtn>
-
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="linkedin-in" />
-            </MDBBtn>
-
-            <MDBBtn
-              outline
-              color="light"
-              floating
-              className="m-1"
-              href="#!"
-              role="button"
-            >
-              <MDBIcon fab icon="github" />
-            </MDBBtn>
-          </section>
-
-          <section className="">
-            <form action="">
-              <MDBRow className="d-flex justify-content-center">
-                <MDBCol size="auto">
-                  <p className="pt-2">
-                    <strong>Sign up for latest events</strong>
-                  </p>
-                </MDBCol>
-
-                <MDBCol md="5" start>
-                  <MDBInput
-                    contrast
-                    type="email"
-                    label=""
-                    className="mb-4"
-                  />
-                </MDBCol>
-
-                <MDBCol size="auto">
-                  <MDBBtn outline color="light" type="submit" className="mb-4">
-                    Subscribe
-                  </MDBBtn>
-                </MDBCol>
-              </MDBRow>
-            </form>
-          </section>
-          <section className="mb-4">
-            <p>
-              GatherUp is an exciting event project that brings together people
-              from all walks of life to celebrate community and creativity. Join
-              us as we showcase a diverse range of events, from music festivals
-              and art exhibitions to workshops and cultural gatherings. Whether
-              you're a seasoned event-goer or just looking for something new to
-              experience, GatherUp has something for everyone.
-            </p>
-          </section>
-
-          <section className="">
-            <MDBRow>
-              <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 4
-                    </a>
-                  </li>
-                </ul>
-              </MDBCol>
-
-              <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 4
-                    </a>
-                  </li>
-                </ul>
-              </MDBCol>
-
-              <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 4
-                    </a>
-                  </li>
-                </ul>
-              </MDBCol>
-
-              <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-white">
-                      Link 4
-                    </a>
-                  </li>
-                </ul>
-              </MDBCol>
-            </MDBRow>
-          </section>
-        </MDBContainer>
 
         <div
-          className="text-center p-3"
-          style={{ backgroundColor: "rgb(38, 38, 38)" }}
-        >
-          <p>
-            &copy; {new Date().getFullYear()} GatherUp. All rights reserved.
-          </p>
-        </div>
+  className="text-center p-3">
+  <MDBRow className="justify-content-center mb-3">
+    <MDBCol className="d-flex justify-content-center">
+      <MDBBtn
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="#!"
+        role="button"
+      >
+        <MDBIcon fab icon="facebook-f" />
+      </MDBBtn>
+
+      <MDBBtn
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="#!"
+        role="button"
+      >
+        <MDBIcon fab icon="twitter" />
+      </MDBBtn>
+
+      <MDBBtn
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="#!"
+        role="button"
+      >
+        <MDBIcon fab icon="google" />
+      </MDBBtn>
+
+      <MDBBtn
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="#!"
+        role="button"
+      >
+        <MDBIcon fab icon="instagram" />
+      </MDBBtn>
+
+      <MDBBtn
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="#!"
+        role="button"
+      >
+        <MDBIcon fab icon="linkedin-in" />
+      </MDBBtn>
+
+      <MDBBtn 
+        outline
+        color="light"
+        floating
+        className="m-1"
+        target="_blank"
+         rel="noopener noreferrer"
+        href="https://github.com/lpaschopoulos"
+        role="button"
+      >
+        <MDBIcon fab icon="github" />
+      </MDBBtn>
+    </MDBCol>
+  </MDBRow>
+
+  <p>
+    &copy; {new Date().getFullYear()} GatherUp. All rights reserved.
+  </p>
+</div>
+
       </MDBFooter>
     </div>
   );

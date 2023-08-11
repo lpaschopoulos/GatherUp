@@ -8,7 +8,14 @@ function ComingSoon({ events }) {
   const { eventId } = useParams();
 
   const today = new Date();
-  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+  //checking for events that are scheduled after this nextMonth date.
+  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); //events that are more than a month away.
+
+  const comingSoonEvents = events.filter(event => {
+    const eventDate = new Date(event.date);
+    return eventDate > nextMonth;
+  });
+
 
   const handleCardClick = (selectedEvent) => {
     console.log(selectedEvent._id);
@@ -17,10 +24,6 @@ function ComingSoon({ events }) {
 };
 
 
-  const comingSoonEvents = events.filter(event => {
-    const eventDate = new Date(event.date);
-    return eventDate > nextMonth;
-  });
 
   return (
     <div className="event-list-soon">
