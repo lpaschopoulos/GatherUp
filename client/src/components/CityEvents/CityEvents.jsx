@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+
 import './CityEvents.css';
 
 function CityEvents({ events }) {
@@ -10,7 +12,7 @@ function CityEvents({ events }) {
     // Set an interval to shuffle the events every 5 seconds
     const interval = setInterval(() => {
       shuffleEvents();
-    }, 3000);
+    }, 5000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
@@ -46,7 +48,7 @@ function CityEvents({ events }) {
           <li key={event.id}>
             <span className="event-city">{event.city}</span>
             <span className="event-name">{trimTitle(event.title)}</span>
-            <span className="event-date">{event.date}</span>
+            <span className="event-date">{moment(event.date).format("dddd, D MMMM YYYY")}</span>
           </li>
         ))}
       </ul>

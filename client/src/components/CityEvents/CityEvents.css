@@ -6,6 +6,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Distributes the items evenly */
+    flex-grow: 1;  /* Allows the section to grow if there's space */
+    flex-shrink: 1; /* Allows the section to shrink if needed */
   }
   
   .city-events-section ul {
@@ -30,7 +32,7 @@
   
   .city-events-section .event-city {
     font-weight: 600;
-    color: #0077cc;
+    color: #00b600;
     display: block;
   }
   
@@ -46,6 +48,14 @@
     display: block;
   }
 
+  .event-name {
+    max-height: 50px; /* Adjust as per your needs */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Ensure title stays in a single line */
+    width: 90%; /* Adjust width as per your design */
+    margin: auto;
+}
 
   
   
