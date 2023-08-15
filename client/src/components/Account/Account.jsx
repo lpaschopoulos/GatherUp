@@ -22,6 +22,7 @@ function Account() {
     () => localStorage.getItem("userImage") || null
   );
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -110,34 +111,27 @@ function Account() {
 };
 
 
-  useEffect(() => {
-    if (user) {
-      setUsername(user.username);
-      setEmail(user.email);
+useEffect(() => {
+  if (user) {
+    setUsername(user.username);
+    setEmail(user.email);
+    setUserImage(user.profilePic);
+  }
+  // Fetch data for events and attends count
+  const fetchData = async () => {
+    try {
+      await fetchEventsCount(userId);
+      await fetchAttendsCount(userId);
+      setLoading(false); // Set loading to false once data is fetched
+    } catch (err) {
+      setError(err.message || "An error occurred."); 
+      setLoading(false);
     }
-    const fetchUserData = async (userId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3636/user/${userId}`
-        );
-        setUser(response.data.user);
-        setUserImage(response.data.user.profilePic);
-        setLoading(false); // Set loading to false once data is fetched
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setLoading(false); // Also set loading to false on error for good UX
-      }
-    };
-    if (user && user.profilePic) {
-      setUserImage(user.profilePic);
-    }
+  };
 
-    fetchUserData(userId);
-    fetchEventsCount(userId);
-    fetchAttendsCount(userId);
-    console.log("events number", eventsCount);
-    console.log("Fetched user data:", user);
-  }, [user, userId]);
+  fetchData();
+}, [user, userId]);
+
 
   const fileInputRef = useRef(null);
 
@@ -228,6 +222,14 @@ function Account() {
       console.error("Error:", error);
     }
   };
+
+  if (loading) {
+    return <div className="loading-container">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error-container">Error: {error}</div>;
+  }
 
   return (
     <div className="user-card-container">
