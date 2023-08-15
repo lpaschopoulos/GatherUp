@@ -100,7 +100,9 @@ function Account() {
       const response = await axios.get(
         `http://localhost:3636/user/${userId}/attending`
       );
-      const attends = response.data;
+      const attends = response.data.events;
+      console.log('Response from attending:', response.data);
+
       setAttendsCount(attends.length);
     } catch (error) {
       console.error("Error fetching attends count:", error);
@@ -135,7 +137,7 @@ function Account() {
     fetchAttendsCount(userId);
     console.log("events number", eventsCount);
     console.log("Fetched user data:", user);
-  }, [user]);
+  }, [user, userId]);
 
   const fileInputRef = useRef(null);
 
