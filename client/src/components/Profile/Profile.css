@@ -1,36 +1,27 @@
-/* Profile.css */
 .profile {
   display: flex;
   flex-direction: column;
-  align-items: center;  /* original setting */
-  justify-content: flex-start; /* original setting */
-  height: calc(100vh - 50px);
-
+  align-items: center;
+  justify-content: center;
+  min-height: 100%; /* Ensure the content takes at least the full viewport height */
+  overflow: hidden;
 }
 
 .user-info {
   top: 0;  
   left: 50%;  
 }
-  .circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    background-size: cover;
-    margin-bottom: 10px;
-    align-self: flex-start;
-  }
-  .page-container {
-    padding-top: 10px;
-    align-self: flex-start;
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Ensure the content takes the full width */
+  padding: 20px;
 }
   
-  .default-circle {
-    /* Add default background styles here */
-    background-color: #d8d8d8; /* Example: Set a default background color */
-    /* background-image: url('path/to/default-image.jpg'); */ /* Example: Set a default background image */
-  }
+
   
   
   .top-left {

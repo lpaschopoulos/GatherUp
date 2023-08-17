@@ -52,31 +52,20 @@ function Profile() {
   
   return (
     <div className="profile">
-      <div className="circle-container">
-        {user?.profileImage && (
-          <div
-            className={`circle${user.profileImage ? "" : " default-circle"}`}
-            style={
-              user.profileImage
-                ? { backgroundImage: `url(${user.profileImage})` }
-                : null
-            }
-          ></div>
-        )}
-      </div>
-      <div className="user-info">
-      <Username userInfo={user} isChecked={isChecked} onToggle={handleToggle} />
-      </div>
-      
       <div className="page-container">
-        {user && (
-          <>
-            { isChecked ? <AttendingEventsList userId={user._id} /> : <CardsProfile userId={user._id} />}
-          </>
-        )}
+        <div className="user-info">
+          <Username userInfo={user} isChecked={isChecked} onToggle={handleToggle} />
+        </div>
+        <div className="cards-profile-container">
+          {user && (
+            <div className="cards-profile-scroll">
+              {isChecked ? <AttendingEventsList userId={user._id} /> : <CardsProfile userId={user._id} />}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
-        }
+}
 
 export default Profile;
