@@ -10,6 +10,7 @@ import { useNavigate, } from 'react-router-dom';
 import axios from "axios";
 import { UserContext } from "../../Context/context";
 import { Link } from 'react-router-dom';
+import logoImage from '../../assets/images/Logo2-removebg.png';
 import './NavBar.css';
 
 function NavBar() {
@@ -49,6 +50,8 @@ function NavBar() {
     <Navbar collapseOnSelect expand="lg" className="custom-bg">
       <Container>
         <Navbar.Brand href="/" className="gatherup-link">
+        <img src={logoImage} alt="Logo" className="logo-image" /> 
+
           GatherUp
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

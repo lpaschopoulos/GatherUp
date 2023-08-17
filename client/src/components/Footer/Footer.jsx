@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Footer.css";
 import {
   MDBFooter,
@@ -10,11 +10,25 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 
-const Footer = () => {
-  // eslint-disable-next-line
-  const handleGoToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+function Footer() {
+const [showTopBtn, setShowTopBtn] = useState(false);
+
+useEffect(() => {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+            setShowTopBtn(true);
+        } else {
+            setShowTopBtn(false);
+        }
+    });
+}, []);
+
+function goTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
   return (
     <div className="footerposition">
@@ -109,7 +123,11 @@ const Footer = () => {
     &copy; {new Date().getFullYear()} GatherUp. All rights reserved.
   </p>
 </div>
-
+{
+        showTopBtn && (
+          <div className="go-top" onClick={goTop}></div>
+        )
+      }
       </MDBFooter>
     </div>
   );

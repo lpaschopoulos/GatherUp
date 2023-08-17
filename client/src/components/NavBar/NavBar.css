@@ -69,3 +69,9 @@
   transform: none !important;
   box-sizing: border-box !important;
 }
+
+.logo-image {
+  height: 40px;
+  width: 40px; 
+  margin-top: -9px; 
+}
