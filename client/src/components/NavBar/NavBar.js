@@ -1,13 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { BiSearch } from 'react-icons/bi'; // Import the search icon
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, } from 'react-router-dom';
-import axios from "axios";
 import { UserContext } from "../../Context/context";
 import { Link } from 'react-router-dom';
 import logoImage from '../../assets/images/Logo2-removebg.png';
@@ -15,25 +12,8 @@ import './NavBar.css';
 
 function NavBar() {
   var navigate = useNavigate();
-
   const { user } = useContext(UserContext);
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
-  const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3636/events/")  // Replace with your actual API endpoint
-      .then(response => {
-        setEvents(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching events:", error);
-      });
-  }, []);
-
-  
-  const handleSearchClick = () => {
-    setIsSearchExpanded(!isSearchExpanded);
-  };
   const handleLogin = () => {
     navigate ("/login");
   };
@@ -51,7 +31,6 @@ function NavBar() {
       <Container>
         <Navbar.Brand href="/" className="gatherup-link">
         <img src={logoImage} alt="Logo" className="logo-image" /> 
-
           GatherUp
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -67,28 +46,6 @@ function NavBar() {
               <NavDropdown.Item href="#action/3.4">Near You</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form className={`d-flex ${isSearchExpanded ? 'expanded' : ''}`}>
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-              style={{ display: isSearchExpanded ? 'block' : 'none' }}
-            />
-            <Button
-              variant="outline-success"
-              classname="search-icon"
-              onClick={handleSearchClick}
-              style={{ display: isSearchExpanded ? 'none' : 'flex' }}
-            >
-              <BiSearch size={20} />
-            </Button>
-            {isSearchExpanded && (
-              <Button variant="outline-success" className="search-button" onClick={handleSearchClick}>
-                Search
-              </Button>
-            )}
-          </Form>
           <Nav className="ml-auto">
             {/* Conditionally render the Account button */}
             {user ? (

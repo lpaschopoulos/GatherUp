@@ -1,16 +1,12 @@
 body {
-    /* fallback for old browsers */
-    background: #6a11cb;
-  
-    /* Chrome 10-25, Safari 5.1-6 */
+
     background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
   
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    background: linear-gradient(to right, rgb(206, 197, 216), rgb(180, 200, 235))
   }
 
   img {
-    width: 90px; /* Set the width as you desire */
+    width: 90px; 
     background: transparent;
   }
   .GU {
@@ -19,7 +15,7 @@ body {
   }
 
   .loginbtn {
-    padding: 8px 20px; /* Adjust the padding to your desired size */
+    padding: 8px 20px; 
     size: fixed;
     margin-bottom: 30px;
     max-height: 48px;

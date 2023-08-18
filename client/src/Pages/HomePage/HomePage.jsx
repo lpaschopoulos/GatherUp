@@ -3,6 +3,7 @@ import axios from "axios";
 import ThisMonth from "../../components/ThisMonth/ThisMonth";
 import ComingSoon from "../../components/ComingSoon/ComingSoon";
 import CityEvents from "../../components/CityEvents/CityEvents";
+import Search from "../../components/Search/Search";
 import "./HomePage.scss"
 function HomePage() {
   const [events, setEvents] = useState([]);
@@ -19,10 +20,25 @@ function HomePage() {
 
 
 
-  return (
-    <div className="section">
+  return (    
+  
+  <div className="section">
+  <div className="search-input">
+    <Search/>
+  </div>
+
+  <div className="custom-section">
+    <h2>New Section Title</h2>
+    <p>This is the content of the new section.</p>
+    <div className="largefrontcard">LargeCard</div>
+    <div className="smallcards-container"> 
+        <div className="smallfrontcard">SmallCard</div>
+        <div className="smallfrontcard">SmallCard</div>
+    </div>
+  </div>
+      
       <div className="section-month">
-        <h2>Whats Hot</h2>
+        <h2>What's Hot</h2>
         <ul>
           <ThisMonth events={events} />
         </ul>

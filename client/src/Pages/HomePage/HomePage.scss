@@ -20,14 +20,13 @@
 
 .section-week {
     margin: 50px 0;
-
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     color: #ffffff; /* Text color for better visibility */
   
     h2 {
-        color:white;
+      color:white;
       text-align: left;
       margin-bottom: 30px;
       font-size: 2.5rem;
@@ -102,7 +101,8 @@
   }
   
 
-  .section-month {
+  .section-month,
+  .custom-section {
     margin: 50px 0;
     padding: 40px;
     border-radius: 10px;
@@ -252,4 +252,74 @@
     height: 500px;
     overflow: hidden;
 }
+
+.search-input {
+  display: flex;
+  justify-content: center;
+ margin-top: 10px;
+}
+.custom-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  text-align: center;
+}
+
+.custom-section > h2, .custom-section > p {
+  width: 100%;
+}
+
+.largefrontcard,
+.smallfrontcard {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  position: relative;
+  margin: 10px;
+}
+
+.largefrontcard {
+  width: 350px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 1;
+}
+
+.smallcards-container {
+  display: flex;
+  flex-direction: column; /* Stacks children vertically */
+  order: 2;
+}
+
+.smallfrontcard {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px; /* Creates spacing between small cards */
+}
+
+.smallcards-container .smallfrontcard:last-child {
+  margin-bottom: 0; /* Removes the margin for the last small card */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

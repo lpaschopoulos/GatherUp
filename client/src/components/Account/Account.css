@@ -157,11 +157,6 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-
-
-/* ... (existing styles) ... */
-
-/* Additional styles for the default user image container */
 .default-user-image {
   position: relative;
   cursor: pointer;
