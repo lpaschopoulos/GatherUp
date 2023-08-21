@@ -37,9 +37,14 @@ function Search() {
   return (
 <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>  
     <div className="search_container">
-        <label className="search_label">Discover Exciting Events</label>
+    <label className="search_label">
+  <span>Discover</span>
+  <span>Exciting</span>
+  <span>Events</span>
+</label>
+
         <input
-          placeholder="E.g. Secret Garden Gala, Music Mania Fest"
+          placeholder="E.g. Music Mania Fest, or your wildest intrests"
           className="search"
           name="text"
           type="text"
@@ -56,7 +61,7 @@ function Search() {
             <option key={category} value={category}>{category}</option>
           ))}
         </select>
-        <p className="search_description">Enter event names, themes, or your wildest interests!</p>
+        <p className="search_description">Find what's happening in your town</p>
       </div>
     </form>
   );

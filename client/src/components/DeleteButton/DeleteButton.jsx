@@ -4,7 +4,7 @@ import "./DeleteButton.css"
 function DeleteButton({onDelete}) {
   return (
     <button className="button" type="button" onClick={onDelete}>
-      <span className="button__text">Delete</span>
+      <span className="button__text">Remove</span>
       <span className="button__icon">
         <svg
           className="svg"

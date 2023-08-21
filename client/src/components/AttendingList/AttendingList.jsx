@@ -42,7 +42,7 @@ function AttendingEventsList({ userId }) {
             <h3 className="section-title">Your Attending List:</h3>
             <div className="card-grid">
               {attendingEvents.map((event) => (
-                <div key={event._id} className="card custom-card">
+                event && <div key={event._id} className="card custom-card">
                           <Link to={`/events/${event._id}`}>
 
                   {typeof event.image === "string" && (

@@ -39,6 +39,7 @@ function HomePage() {
       
       <div className="section-month">
         <h2>What's Hot</h2>
+        
         <ul>
           <ThisMonth events={events} />
         </ul>
