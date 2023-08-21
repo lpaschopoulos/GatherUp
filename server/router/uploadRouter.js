@@ -15,6 +15,15 @@ const User = require("../models/user");
         message: "Error"
       })
     }
+    // const fs = require('fs'); // Import the 'fs' module
+    //         // Delete the uploaded file from the server's file system
+    //         fs.unlink(req.file.path, (deleteErr) => {
+    //           if (deleteErr) {
+    //               console.error('Error deleting uploaded file:', deleteErr);
+    //           } else {
+    //               console.log('Uploaded file deleted successfully.');
+    //           }
+    //       });
     const secureUrl = result.secure_url;
     res.status(200).json({
       success: true,
