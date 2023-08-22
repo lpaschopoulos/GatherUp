@@ -19,6 +19,7 @@ import UpcomingEvents from "./Pages/UpocomingEvents/UpcomingEvents";
 import NotFound from "./Pages/NotFound";
 import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css"
+import OnlineEvents from "./Pages/OnlineEvents/OnlineEvents";
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
             <Route path="/today" element={<Today/>}/>
             <Route path="/tomorrow" element={<Tomorrow/>}/>
             <Route path="/upcoming-events" element={<UpcomingEvents/>}/>
+            <Route path="/online-events" element={<OnlineEvents/>}/>
             <Route path="/allevents" element={<AllEvents/>}/>
             <Route path="/search" element={<SearchResults/>}/>
             <Route path="*" element={<NotFound />} />

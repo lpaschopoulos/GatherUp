@@ -21,15 +21,16 @@ const Username = ({userInfo, isChecked, onToggle}) => {
                 onClick={onToggle} 
                 className="toggle"
             >
-                Events
+                <span className={`toggle__text ${isChecked ? "toggle__text--events-on" : "toggle__text--events-off"}`}>Events</span>
                 <div className="toggle__switch">
                     <div className={`toggle__circle ${isChecked ? "checked" : ""}`}></div>
                 </div>
-                Attend
+                <span className={`toggle__text ${isChecked ? "toggle__text--attend-on" : "toggle__text--attend-off"}`}>Attend</span>
             </label>
         </>
     );
   }
+  
   
   function logout(){
     localStorage.removeItem("token")
@@ -93,8 +94,10 @@ const Username = ({userInfo, isChecked, onToggle}) => {
 </svg>
         Logout
       </button>
-      
+    
     </div>
+    <h4>Your List of:</h4>
+
     <ToggleSwitch isChecked={isChecked} onToggle={onToggle} />
 
     </div>

@@ -145,3 +145,26 @@ padding-bottom: 10px;
   }
   
 
+.button-container h4 {
+  text-align: center;
+  padding-top: 10px;
+  margin-bottom: 3px;
+  color: black;
+}
+
+.toggle__text--events-off {
+  color:blue;
+}
+
+.toggle__text--events-on {
+  color: black;
+}
+
+.toggle__text--attend-off {
+  color: black;
+}
+
+.toggle__text--attend-on {
+  color: blue;
+}
+

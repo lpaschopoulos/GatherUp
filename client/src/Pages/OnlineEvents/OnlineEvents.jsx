@@ -2,20 +2,20 @@ import React, { useContext } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { EventContext } from "../../Context/context";
-import "../Today/Today.css";
+import "../Today/Today.css"; 
 
-function AllEvents() {
+function OnlineEvents() {
   const events = useContext(EventContext);
 
-  // Sort the events by date in descending order (newest first)
-  const sortedEvents = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
-
+  // Filter out only online events
+  const onlineEvents = events.filter(event => event.city.toLowerCase() === "online" && event.location.toLowerCase() === "online")
+  onlineEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
   return (
     <div className="page-container-today">
       <div className="container-today one-today">
-        <h3 className="section-title-today">All Events</h3>
+        <h3 className="section-title-today">Online Events</h3>
         <div className="card-grid-today">
-          {sortedEvents.map((event) => (
+          {onlineEvents.map((event) => (
             <div key={event._id} className="card-today custom-card-today">
               <Link to={`/events/${event._id}`}>
                 {typeof event.image === "string" && (
@@ -28,7 +28,7 @@ function AllEvents() {
                 <div className="card-body-today">
                   <h3 className="card-title-today">{event.title}</h3>
                   <p className="card-text-today">
-                    <strong>Date and Time:</strong> 
+                    <strong>Date and Time:</strong>{" "}
                     {moment(event.date).format("dddd, Do MMMM YYYY, h:mm a")}
                   </p>
                   <p className="card-text-today">
@@ -38,7 +38,7 @@ function AllEvents() {
                     <strong>Location:</strong> {event.location}
                   </p>
                   <p className="card-text-today">
-                    <strong>Details:</strong> 
+                    <strong>Details:</strong>{" "}
                     {event.details.length > 100
                       ? `${event.details.substring(0, 100)}... `
                       : event.details}
@@ -59,4 +59,4 @@ function AllEvents() {
   );
 }
 
-export default AllEvents;
+export default OnlineEvents;

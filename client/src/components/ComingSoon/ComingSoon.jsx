@@ -2,26 +2,27 @@ import React from "react";
 import "./ComingSoon.css"; // Import your CSS file
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import moment from "moment";
+
 
 function ComingSoon({ events }) {
   const navigate = useNavigate();
-  const { eventId } = useParams();
 
   const today = new Date();
-  //checking for events that are scheduled after this nextMonth date.
-  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); //events that are more than a month away.
+  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
-  const comingSoonEvents = events.filter(event => {
-    const eventDate = new Date(event.date);
-    return eventDate > nextMonth;
-  });
-
+  const comingSoonEvents = events
+    .filter(event => {
+      const eventDate = new Date(event.date);
+      return eventDate > nextMonth;
+    })
+    .sort((a, b) => new Date(a.date) -   new Date(b.date))  // Sort by newest events
+    .slice(0, 5);  // Only take the first 5 events
 
   const handleCardClick = (selectedEvent) => {
     console.log(selectedEvent._id);
-
     navigate(`/events/${selectedEvent._id}`);
-};
+  };
 
 
 
@@ -38,7 +39,7 @@ function ComingSoon({ events }) {
             <div className="card_content-soon">
               <span className="card_title-soon">{event.title}</span>
               <p className="card_subtitle-soon"><strong>{event.city}</strong> </p>
-              <p className="card_description-soon">{event.location}</p>
+              <p className="card_description-soon">{moment(event.date).format("dddd, D MMMM YYYY")}</p>
             </div>
           </article>
         ))}

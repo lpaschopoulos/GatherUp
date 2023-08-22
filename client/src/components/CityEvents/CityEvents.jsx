@@ -41,19 +41,21 @@ function CityEvents({ events }) {
 };
 
 
-  return (
-    <div className="city-events-section">
-      <ul>
-        {displayedEvents.map((event) => (
+return (
+  <div className="city-events-section">
+    <ul>
+      {displayedEvents
+        .filter(event => event.city.toLowerCase() !== "online" && event.location.toLowerCase() !== "online")
+        .map((event) => (
           <li key={event.id}>
             <span className="event-city">{event.city}</span>
             <span className="event-name">{trimTitle(event.title)}</span>
             <span className="event-date">{moment(event.date).format("dddd, D MMMM YYYY")}</span>
           </li>
         ))}
-      </ul>
-    </div>
-  );
+    </ul>
+  </div>
+);
 }
 
 export default CityEvents;

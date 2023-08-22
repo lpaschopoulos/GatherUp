@@ -12,6 +12,7 @@ function ThisMonth({ events }) {
       const eventDate = new Date(event.date);
       return eventDate >= today && eventDate <= endOfMonth;
     })
+    .sort((a, b) => new Date(a.date) - new Date(b.date))// Sorting by oldest date first
     .slice(0, 6);
 
   const [selectedEvent, setSelectedEvent] = useState(null);
