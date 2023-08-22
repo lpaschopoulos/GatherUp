@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { EventContext } from "../../Context/context";
@@ -7,13 +7,53 @@ import "../Today/Today.css";
 function AllEvents() {
   const events = useContext(EventContext);
 
-  // Sort the events by date in descending order (newest first)
-  const sortedEvents = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
+  // State to hold the selected filter
+  const [selectedFilter, setSelectedFilter] = useState("date");
 
+  // Sort the events based on the selected filter
+  let sortedEvents = [...events];
+  switch (selectedFilter) {
+    case "date":
+      sortedEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+      break;
+    case "title":
+      sortedEvents.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+    case "city":
+      sortedEvents.sort((a, b) => a.city.localeCompare(b.city));
+      break;
+    default:
+      break;
+  }
+  const centerWrapperStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  };
   return (
     <div className="page-container-today">
       <div className="container-today one-today">
         <h3 className="section-title-today">All Events</h3>
+        <div style={centerWrapperStyle}>
+
+        <div className="search_container">
+          <label className="search_label">
+          <span className="search_description">Sort events by:</span>
+          </label>
+
+          {/* Dropdown filter */}
+          <select
+            className="search_dropdown"
+            value={selectedFilter}
+            onChange={(e) => setSelectedFilter(e.target.value)}
+          >
+            <option value="date">Date</option>
+            <option value="title">Title</option>
+            <option value="city">City</option>
+          </select>
+        </div>
+        </div>
         <div className="card-grid-today">
           {sortedEvents.map((event) => (
             <div key={event._id} className="card-today custom-card-today">
