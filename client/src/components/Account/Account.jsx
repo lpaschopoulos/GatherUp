@@ -164,20 +164,38 @@ useEffect(() => {
         { headers }
       );
 
-      if (response.status === 200) {
-        console.log("User updated:", response.data);
-        setUser(response.data); // Update the user in the context with the returned updated user
-        setPassword(""); // Clear the password field
-      } else {
-        console.error(
-          "Error updating user:",
-          response.data.msg || "Unknown error"
-        );
-      }
-    } catch (error) {
+    // Successfully updated
+    if (response.status === 200) {
+      console.log("User updated:", response.data);
+      setUser(response.data);
+      setPassword("");
+      alert("User information updated successfully!");
+    }
+    // Check if the message from the server is about the username already existing
+    else if (response.data.msg === "Username already exists") {
+      alert("Username already exists"); // Displaying the alert
+    } else {
+      console.error(
+        "Error updating user:",
+        response.data.msg || "Unknown error"
+      );
+    }
+  } catch (error) {
+    // Check if the error message from the server is about the username already existing
+    if (error.response && error.response.data.msg === "Username is already in use.") {
+      alert("Username already exists"); // Displaying the alert
+      setUsername(user.username);
+    }
+    // Check if the error message from the server is about the email already existing
+    else if (error.response && error.response.data.msg === "Email is already in use.") {
+      alert("Email already exists"); // Displaying the alert
+      setEmail(user.email);  // Resetting the email back to original
+    }
+    else {
       console.error("Error:", error);
     }
-  };
+  }
+};
 
   const handleDeleteClick = async () => {
     // Show confirmation dialog

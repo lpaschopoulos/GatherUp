@@ -1,49 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import "./Register.css";
 import logoImage from '../../assets/images/gathering-for-logo.jpg';
 import logoImages from '../../assets/images/location-map-marker-icons-icon.png';
-
-
+import { UserContext } from '../../Context/context'; // Import UserContext
 
 function Register() {
   const navigate = useNavigate();
+  const { setUser: setLoggedInUser } = useContext(UserContext); // Get setLoggedInUser from UserContext
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
 
-  function register() {
-    axios
-        .post("http://localhost:3636/user/signup", { username, email, password })
-        .then(({ data }) => {
-            console.log(data);
-            if (data.token) {
-                localStorage.setItem("token", data.token);
-                navigate("/profile");
+  async function register() {
+    try {
+      const { data } = await axios.post("http://localhost:3636/user/signup", { username, email, password });
+  
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+  
+        // Fetch the user's details using the verify endpoint. this way the users infos are displayed right after the registration in the account component.
+        axios.post("http://localhost:3636/user/verify", { token: data.token })
+          .then(response => {
+            if (response.data && response.data._id) {
+              setLoggedInUser(response.data);
+              navigate("/profile");
             } else {
-                alert(data.msg);
+              alert("Error fetching user data.");
             }
-        })
-        .catch(error => {
-            if (error.response) {
-                // Handle the expected 400 error
-                if (error.response.status === 400) {
-                    alert(error.response.data.msg);
-                } else {
-                    // Handle other possible HTTP errors (like 500, 403, etc.)
-                    alert(`An error occurred: ${error.response.status} ${error.response.statusText}`);
-                }
-            } else {
-                // Handle other errors like network errors
-                alert('An unexpected error occurred. Please try again.');
-            }
-        });
-}
-
-
+          })
+          .catch(error => {
+            alert("Error verifying token. Please try again.");
+          });
+      } else {
+        alert(data.msg);
+      }
+    } catch (error) {
+      // Error handling code here
+      if (error.response) {
+        if (error.response.status === 400) {
+          alert(error.response.data.msg);
+        } else {
+          alert(`An error occurred: ${error.response.status} ${error.response.statusText}`);
+        }
+      } else {
+        alert('An unexpected error occurred. Please try again.');
+      }
+    }
+  }
 
   return (
     <MDBContainer className="my-5">

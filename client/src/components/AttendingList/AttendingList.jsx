@@ -39,7 +39,7 @@ function AttendingEventsList({ userId }) {
     return (
         <div  className="page-container">
           <div className="container one">
-            <h3 className="section-title">Your Attending List:</h3>
+            <h3 className="section-title"></h3>
             <div className="card-grid">
               {attendingEvents.map((event) => (
                 event && <div key={event._id} className="card custom-card">
