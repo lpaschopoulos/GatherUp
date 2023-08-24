@@ -4,6 +4,8 @@ import ThisMonth from "../../components/ThisMonth/ThisMonth";
 import ComingSoon from "../../components/ComingSoon/ComingSoon";
 import CityEvents from "../../components/CityEvents/CityEvents";
 import Search from "../../components/Search/Search";
+import Carousel from "../../components/Carousel/Carousel";
+
 import "./HomePage.scss"
 function HomePage() {
   const [events, setEvents] = useState([]);
@@ -28,13 +30,7 @@ function HomePage() {
   </div>
 
   <div className="custom-section">
-    <h2>New Section Title</h2>
-    <p>This is the content of the new section.</p>
-    <div className="largefrontcard">LargeCard</div>
-    <div className="smallcards-container"> 
-        <div className="smallfrontcard">SmallCard</div>
-        <div className="smallfrontcard">SmallCard</div>
-    </div>
+<Carousel/>
   </div>
       
       <div className="section-month">
