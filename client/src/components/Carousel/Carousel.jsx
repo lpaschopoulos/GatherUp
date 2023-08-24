@@ -35,21 +35,21 @@ function Carousel() {
         {events.map((event, index) => (
           <div
             key={event._id}
-            className={`mySlides ${index === slideIndex ? 'active' : ''}`}
+            className={`mySlides ${index === slideIndex ? 'active-carousel' : ''}`}
           >
             <Link to={`/events/${event._id}`}>
             <img src={event.image} alt={event.title} />
             </Link>
-            <div className="caption">{event.title}</div>
+            <div className="caption-carousel">{event.title}</div>
           </div>
         ))}
       </div>
-      <div className="toggle-container">
+      <div className="toggle-container-carousel">
         {events.map((_, index) => (
           <span
             key={index}
             onClick={() => setSlideIndex(index)}
-            className={`toggle ${index === slideIndex ? 'active' : ''}`}
+            className={`toggle-carousel ${index === slideIndex ? 'active-carousel' : ''}`}
           ></span>
         ))}
       </div>

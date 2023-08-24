@@ -51,9 +51,10 @@ const Username = ({userInfo, isChecked, onToggle}) => {
 
   return (
     <div className="button-container">
-      
+    {userInfo?.profilePic && <img src={userInfo.profilePic} alt="User Profile" className="user-image" />}
+
 <h1 className="username">
-    Welcome
+    {/* Welcome */}
     <div className="username-color">
         {userInfo?.username}
 
