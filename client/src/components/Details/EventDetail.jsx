@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react'; // <-- useContext was missing in the import
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 import LetsGoButton from "./LetsGoButton";
-import {UserContext} from '../../Context/context';
+import { UserContext } from '../../Context/context';
 
 import "./EventDetail.css"
 import BuyTicket from './BuyTicket';
@@ -15,22 +15,30 @@ function EventDetail() {
   const navigate = useNavigate();
 
   const { eventId } = useParams();
-  const [events, setEvents] = useState(null); 
+  const [events, setEvents] = useState(null);
+  const [loading, setLoading] = useState(true);  // <-- Initialize the loading state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);  // <-- Set loading to true when fetching starts
         const response = await axios.get(`http://localhost:3636/events/${eventId}`);
-        setEvents(response.data); 
+        setEvents(response.data);
       } catch (error) {
         console.error('Error fetching event data:', error);
       }
+      setLoading(false);  // <-- Set loading to false when fetching ends
     };
+
     fetchData();
   }, [eventId]);
 
-  if (!events) {
+  if (loading) {  // <-- Check the loading state
     return <div>Loading...</div>;
+  }
+
+  if (!events) {
+    return <div>No events found.</div>;
   }
 
   const goToMap = () => {

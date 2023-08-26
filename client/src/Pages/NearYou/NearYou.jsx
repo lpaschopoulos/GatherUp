@@ -20,42 +20,69 @@ const NearYou = () => {
   const defaultCenter = { lat: 40.302, lng: 21.788 };
 
   const eventOptions = events.map((event, index) => ({ value: index, label: event.title }));
-  const cityOptions = [...new Set(events.map(event => event.city))].map(city => ({ value: city, label: city }));
+  const cityOptions = [...new Set(events
+    .filter(event => event.city !== 'Online') // Exclude 'Online' city
+    .map(event => event.city))]
+    .map(city => ({ value: city, label: city }));
 
   const coordinateCache = {};
 
-  const fetchCoordinates = async (city) => {
-    if (coordinateCache[city]) {
-      return coordinateCache[city];
+  const fetchCoordinates = async (city, location) => {
+    const detailedLocationIdentifier = `${location}, ${city}`;
+    const cityIdentifier = city;
+  
+    if (coordinateCache[detailedLocationIdentifier]) {
+      return coordinateCache[detailedLocationIdentifier];
     }
-
+  
+    if (coordinateCache[cityIdentifier]) {
+      return coordinateCache[cityIdentifier];
+    }
+  
     try {
-      const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+      let response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
         params: {
-          q: city,
+          q: detailedLocationIdentifier,
           format: 'json'
         },
         headers: {
           'User-Agent': 'Gather'
         }
       });
-
+  
       if (!response.data[0]) {
-        console.error(`No results found for city: ${city}`);
-        return [null, null];
+        console.warn(`No results found for detailed location: ${detailedLocationIdentifier}. Falling back to city.`);
+  
+        // Fallback to just the city
+        response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+          params: {
+            q: cityIdentifier,
+            format: 'json'
+          },
+          headers: {
+            'User-Agent': 'Gather'
+          }
+        });
+  
+        if (!response.data[0]) {
+          console.error(`No results found even for city: ${cityIdentifier}`);
+          return [null, null];
+        }
       }
-
-      const location = response.data[0];
-      const coordinates = [parseFloat(location.lat), parseFloat(location.lon)];
-
-      coordinateCache[city] = coordinates;
-
+  
+      const locationData = response.data[0];
+      const coordinates = [parseFloat(locationData.lat), parseFloat(locationData.lon)];
+  
+      coordinateCache[detailedLocationIdentifier] = coordinates;
+      coordinateCache[cityIdentifier] = coordinates;
+  
       return coordinates;
     } catch (error) {
       console.error("Failed to fetch coordinates: ", error);
       return [null, null];
     }
   };
+
 
   useEffect(() => {
     let isMounted = true;
@@ -75,7 +102,7 @@ const NearYou = () => {
       });
 
       const updatedEvents = await Promise.all(eventsToFetch.map(async (event) => {
-        const [latitude, longitude] = await fetchCoordinates(event.city);
+        const [latitude, longitude] = await fetchCoordinates(event.city, event.location);
         return isMounted ? { ...event, latitude, longitude } : null;
       }));
 
@@ -114,7 +141,11 @@ const NearYou = () => {
     }
     return false;
   });
-
+  const selectedCoordinates = selectedEvent 
+    ? { lat: selectedEvent.latitude, lng: selectedEvent.longitude }
+    : selectedCityCoordinates 
+      ? selectedCityCoordinates 
+      : defaultCenter; 
   return (
     <div className="map-container">
       <div className="dropdown-container-map">
@@ -132,11 +163,10 @@ const NearYou = () => {
         />
       </div>
       
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
         <GoogleMap 
           mapContainerStyle={{ height: "700px", width: "700px" }} 
           zoom={7} 
-          center={defaultCenter}
+          center={selectedCoordinates || defaultCenter}
         >
           {filteredEvents.map((event, index) => {
             if (event.latitude && event.longitude) {
@@ -163,7 +193,6 @@ const NearYou = () => {
             </InfoWindow>
           )}
         </GoogleMap>
-      </LoadScript>
     </div>
   );
 };

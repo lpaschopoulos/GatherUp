@@ -21,6 +21,7 @@ import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css"
 import OnlineEvents from "./Pages/OnlineEvents/OnlineEvents";
 import NearYou from "./Pages/NearYou/NearYou";
+import { LoadScript } from '@react-google-maps/api';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -51,6 +52,9 @@ function App() {
       });
   }, []); // This effect runs once when App component mounts
   return (
+    <LoadScript
+    googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+  >
     <UserContext.Provider value={{ user: loggedInUser, setUser: setLoggedInUser }}>
       <EventContext.Provider value={events}> {/* Provide the events data */}
 
@@ -83,6 +87,7 @@ function App() {
     </EventContext.Provider>
 
     </UserContext.Provider>
+    </LoadScript>
 
   );
 }
