@@ -20,7 +20,7 @@ import NotFound from "./Pages/NotFound";
 import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css"
 import OnlineEvents from "./Pages/OnlineEvents/OnlineEvents";
-
+import NearYou from "./Pages/NearYou/NearYou";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -73,8 +73,8 @@ function App() {
             <Route path="/online-events" element={<OnlineEvents/>}/>
             <Route path="/allevents" element={<AllEvents/>}/>
             <Route path="/search" element={<SearchResults/>}/>
+            <Route path="/near-you" element={<NearYou/>}/>
             <Route path="*" element={<NotFound />} />
-
           </Routes>
         </div>
       </div>

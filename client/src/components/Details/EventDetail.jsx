@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react'; // <-- useContext was missing in the import
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import moment from 'moment';
 import LetsGoButton from "./LetsGoButton";
 import {UserContext} from '../../Context/context';
@@ -10,6 +12,7 @@ import BuyTicket from './BuyTicket';
 
 function EventDetail() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const { eventId } = useParams();
   const [events, setEvents] = useState(null); 
@@ -30,7 +33,10 @@ function EventDetail() {
     return <div>Loading...</div>;
   }
 
-
+  const goToMap = () => {
+    navigate('/near-you', { state: { focusedEventId: eventId } });
+  };
+  
 
   return (
     <div className="page-container-detail">
@@ -56,6 +62,8 @@ function EventDetail() {
 
             <div className="card-footer-detail">
   {user && user._id && <LetsGoButton eventId={eventId} userId={user._id} />}
+  <button onClick={goToMap} className="map-button">Map</button>
+
   <BuyTicket/>
 </div>
           </div>

@@ -56,3 +56,40 @@
     margin-bottom: 10px;  /* Space between each line of details */
     font-size: 16px;  /* Adjust as needed */
 }
+
+
+/* EventDetail.css */
+.map-button {
+    display: block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    background: linear-gradient(135deg, #447769, #57b8bf); 
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+  }
+  
+  .map-button:hover {
+    background: linear-gradient(135deg, #4cafa0, #4a95a7); 
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .map-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .map-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 216, 84, 0.5);
+  }
+  

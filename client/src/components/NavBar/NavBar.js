@@ -44,7 +44,7 @@ function NavBar() {
               <NavDropdown.Item as={Link} to="/upcoming-events">Upcoming Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/online-events">Online Events</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Near You</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/near-you">Near You</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav className="ml-auto">
