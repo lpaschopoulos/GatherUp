@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const TicketForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const params = new URLSearchParams(location.search);
-  const eventTitle = params.get('eventTitle');
+  const queryParams = new URLSearchParams(window.location.search);
+  const eventId = queryParams.get('eventId');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const formRef = useRef(null);
   useEffect(() => {
@@ -27,12 +27,12 @@ const TicketForm = () => {
       // cardNumber: event.target['card-number'].value,
       // expiryDate: event.target['expiry-date'].value,
       // cvv: event.target['cvv'].value,
-      eventTitle:eventTitle,
+      eventId:eventId,
       firstName: event.target["first-name"].value,
       lastName: event.target["last-name"].value,
       email: event.target["email"].value,
       contactNumber: event.target["contact-number"].value,
-      message: event.target["message"].value,
+      // message: event.target["message"].value,
     };
 
     try {

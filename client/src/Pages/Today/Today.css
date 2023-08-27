@@ -99,3 +99,21 @@
     text-decoration: none;
     color: inherit;  /* Keeps the original text color */
   }
+
+
+  .search_container-allevents {
+    width: 160%;
+    max-width: unset;
+    left: 30%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    padding: 15px;
+    border-radius: 20px;
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

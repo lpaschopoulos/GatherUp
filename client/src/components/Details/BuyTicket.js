@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./BuyTicket.css"
 
-function BuyTicket({eventTitle}) {
+function BuyTicket({eventId }) {
     const navigate = useNavigate();
     const label = "Buy Ticket";
 
     const handleRedirect = () => {
-        navigate(`/tickets?eventTitle=${eventTitle}`);
+        navigate(`/tickets?eventId=${eventId }`);
     };
 
     return (

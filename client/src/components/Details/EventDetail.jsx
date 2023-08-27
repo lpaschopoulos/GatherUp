@@ -73,7 +73,7 @@ console.log(events)
   {user && user._id && <LetsGoButton eventId={eventId} userId={user._id} />}
   <button onClick={goToMap} className="map-button">Map</button>
 
-  <BuyTicket eventTitle={events.title}/>
+  <BuyTicket eventId={events._id}/>
 </div>
           </div>
         </div>

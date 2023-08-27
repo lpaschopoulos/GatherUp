@@ -36,8 +36,7 @@ function AllEvents() {
       <div className="container-today one-today">
         <h3 className="section-title-today">All Events</h3>
         <div style={centerWrapperStyle}>
-
-        <div className="search_container">
+        <div className="search_container-allevents">
           <label className="search_label">
           <span className="search_description">Sort events by:</span>
           </label>

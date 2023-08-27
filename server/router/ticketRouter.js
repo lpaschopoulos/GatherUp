@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const Event = require('../models/eventModel'); 
 
 router.post('/payment/ticket', async (req, res) => {
     const {
@@ -14,7 +15,7 @@ router.post('/payment/ticket', async (req, res) => {
         email,
         eventTitle,
         contactNumber,
-        ticketPrice,
+        eventId,
         message
     } = req.body;
 
@@ -33,6 +34,17 @@ router.post('/payment/ticket', async (req, res) => {
                 pass: process.env.GMAIL_PASS
             }
         });
+// Assuming EventModel is your Mongoose model
+const event = await Event.findById(eventId, 'title ticketPrice'); // 'title ticketPrice' is optional but specifies only to fetch these fields
+
+if (!event) {
+  return res.status(404).json({ success: false, message: 'Event not found' });
+}
+
+const eventTitle = event.title;
+const ticketPrice = event.ticketPrice;
+console.log(eventTitle)
+
 
         let mailOptions = {
             from: 'yourEmail@gmail.com',
@@ -47,8 +59,8 @@ router.post('/payment/ticket', async (req, res) => {
                 <p><strong>Name:</strong> ${firstName} ${lastName}</p>
                 <p><strong>Contact:</strong> ${contactNumber}</p>
                 <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Price:</strong> ${email}</p>
-                ${message ? `<p><strong>Message:</strong> ${ticketPrice}</p>` : ''}
+                <p><strong>Price:</strong> ${ticketPrice}</p>
+                ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
                 </div>
               <hr />
               <hr />
