@@ -1,12 +1,14 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import "./BuyTicket.css"
 
-function BuyTicket() {
-    const url = "https://www.example.com";
+function BuyTicket({eventTitle}) {
+    const navigate = useNavigate();
     const label = "Buy Ticket";
 
     const handleRedirect = () => {
-        window.location.href = url;
+        navigate(`/tickets?eventTitle=${eventTitle}`);
     };
 
     return (

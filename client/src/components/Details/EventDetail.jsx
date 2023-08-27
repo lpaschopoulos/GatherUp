@@ -41,11 +41,12 @@ function EventDetail() {
     return <div>No events found.</div>;
   }
 
+
   const goToMap = () => {
     navigate('/near-you', { state: { focusedEventId: eventId } });
   };
   
-
+console.log(events)
   return (
     <div className="page-container-detail">
       <div className="container-detail one-detail">
@@ -72,7 +73,7 @@ function EventDetail() {
   {user && user._id && <LetsGoButton eventId={eventId} userId={user._id} />}
   <button onClick={goToMap} className="map-button">Map</button>
 
-  <BuyTicket/>
+  <BuyTicket eventTitle={events.title}/>
 </div>
           </div>
         </div>

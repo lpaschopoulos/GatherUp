@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 import "./TicketForm.css";
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const TicketForm = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const params = new URLSearchParams(location.search);
+  const eventTitle = params.get('eventTitle');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const formRef = useRef(null);
+  useEffect(() => {
+    if (isSubmitted) {
+      formRef.current.reset();
+      setIsSubmitted(false);
+      navigate('/');
+    }
+  }, [isSubmitted]);
   const handleSubmitPay = async (event) => {
     console.log("Form submitted");
     event.preventDefault();
@@ -12,6 +27,7 @@ const TicketForm = () => {
       // cardNumber: event.target['card-number'].value,
       // expiryDate: event.target['expiry-date'].value,
       // cvv: event.target['cvv'].value,
+      eventTitle:eventTitle,
       firstName: event.target["first-name"].value,
       lastName: event.target["last-name"].value,
       email: event.target["email"].value,
@@ -21,22 +37,28 @@ const TicketForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3636/payment/ticket",
+        'http://localhost:3636/payment/ticket',
         ticketData
       );
       if (response.data.success) {
-        alert("Ticket sent successfully");
+        alert('Ticket sent successfully');
+        setIsSubmitted(true);
       } else {
-        alert("Failed to send ticket");
+        alert('Failed to send ticket');
       }
     } catch (error) {
-      alert("An error occurred while processing your request");
+      alert('An error occurred while processing your request');
+    }
+
+    if (isSubmitted) {
+      formRef.current.reset();
+      setIsSubmitted(false);
     }
   };
   return (
     <div className="form-container">
       <div className="modal-pay">
-        <form className="form-pay" onSubmit={handleSubmitPay}>
+        <form className="form-pay" onSubmit={handleSubmitPay} ref={formRef}>
           {/* <div className="payment--options-pay">
                         <button name="paypal" type="button">
                         </button>
@@ -108,7 +130,7 @@ const TicketForm = () => {
                       placeholder=""
                       required
                     />
-                    <span>first name</span>
+                    <span>First Name</span>
                   </label>
                   <label>
                     <input
@@ -118,7 +140,7 @@ const TicketForm = () => {
                       placeholder=""
                       required
                     />
-                    <span>last name</span>
+                    <span>Last Name</span>
                   </label>
                 </div>
                 <label>
@@ -141,7 +163,7 @@ const TicketForm = () => {
                   />
                   <span>contact number</span>
                 </label>
-                <label>
+                {/* <label>
                   <textarea
                     className="input01-tickets"
                     name="message"
@@ -149,7 +171,7 @@ const TicketForm = () => {
                     rows="3"
                   ></textarea>
                   <span>message</span>
-                </label>
+                </label> */}
               </div>
             </div>
           </div>
