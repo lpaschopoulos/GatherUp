@@ -22,7 +22,7 @@ import "./App.css"
 import OnlineEvents from "./Pages/OnlineEvents/OnlineEvents";
 import NearYou from "./Pages/NearYou/NearYou";
 import { LoadScript } from '@react-google-maps/api';
-
+import TicketForm from "./components/TicketForm/TicketForm";
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [events, setEvents] = useState([]); // state for events data
@@ -78,6 +78,8 @@ function App() {
             <Route path="/allevents" element={<AllEvents/>}/>
             <Route path="/search" element={<SearchResults/>}/>
             <Route path="/near-you" element={<NearYou/>}/>
+            <Route path="/tickets" element={<TicketForm/>}/>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
