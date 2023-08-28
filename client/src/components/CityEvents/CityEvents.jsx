@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { useNavigate } from 'react-router-dom';
 
 import './CityEvents.css';
 
 function CityEvents({ events }) {
   const [displayedEvents, setDisplayedEvents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     shuffleEvents();
@@ -40,6 +42,10 @@ function CityEvents({ events }) {
     return title.slice(0, minIndex);  // Exclude the found character and return
 };
 
+const handleCardClick = (selectedEvent) => {
+  console.log(selectedEvent._id);
+  navigate(`/events/${selectedEvent._id}`);
+};
 
 return (
   <div className="city-events-section">
@@ -47,7 +53,7 @@ return (
       {displayedEvents
         .filter(event => event.city.toLowerCase() !== "online" && event.location.toLowerCase() !== "online")
         .map((event) => (
-          <li key={event.id}>
+          <li key={event.id} onClick={() => handleCardClick(event)}>
             <span className="event-city">{event.city}</span>
             <span className="event-name">{trimTitle(event.title)}</span>
             <span className="event-date">{moment(event.date).format("dddd, D MMMM YYYY")}</span>

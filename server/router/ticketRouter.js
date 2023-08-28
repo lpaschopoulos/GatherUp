@@ -59,7 +59,7 @@ console.log(eventTitle)
                 <p><strong>Name:</strong> ${firstName} ${lastName}</p>
                 <p><strong>Contact:</strong> ${contactNumber}</p>
                 <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Price:</strong> ${ticketPrice}</p>
+                <p><strong>Price: €</strong> ${ticketPrice}</p>
                 ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
                 </div>
               <hr />

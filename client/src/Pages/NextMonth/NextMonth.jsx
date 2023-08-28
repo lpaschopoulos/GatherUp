@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { EventContext } from "../../Context/context";
 import "../Today/Today.css";
 
-function UpcomingEvents() {
+function NextMonth() {
   const events = useContext(EventContext);
 
   const today = new Date();
@@ -21,7 +21,7 @@ function UpcomingEvents() {
   return (
     <div className="page-container-today">
       <div className="container-today one-today">
-        <h3 className="section-title-today">Upcoming Events</h3>
+        <h3 className="section-title-today">Next Month:</h3>
         <div className="card-grid-today">
           {upcomingEvents.map((event) => (
             <div key={event._id} className="card-today custom-card-today">
@@ -67,4 +67,4 @@ function UpcomingEvents() {
   );
 }
 
-export default UpcomingEvents;
+export default NextMonth;
