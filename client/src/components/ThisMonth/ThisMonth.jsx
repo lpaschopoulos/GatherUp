@@ -5,7 +5,7 @@ import DetailButton from "../Details/DetailButton";
 
 function ThisMonth({ events }) {
   const today = new Date();
-  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // Last day of the current month
+  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
 
   const thisMonthEvents = events
     .filter((event) => {
@@ -17,7 +17,7 @@ function ThisMonth({ events }) {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const handleDetailButtonClick = (event) => {
+  const handleDetailButtonClick = (events) => {
     setSelectedEvent(events);
   };
 
