@@ -48,6 +48,7 @@ const Username = ({userInfo, isChecked, onToggle}) => {
     console.log("Button clicked!");
     navigate(`/account/${userInfo._id}`);
   };
+  
 
   return (
     <div className="button-container">

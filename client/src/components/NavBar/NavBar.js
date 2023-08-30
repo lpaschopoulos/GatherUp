@@ -37,7 +37,7 @@ function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/allevents">Events</Nav.Link>
-            {/* <Nav.Link as={Link} to="/tickets">Tickets</Nav.Link> */}
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
             <NavDropdown title="Its Happening" id="collasible-nav-dropdown">
             <NavDropdown.Item as={Link} to="/today">Today</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/tomorrow">Tomorrow</NavDropdown.Item>

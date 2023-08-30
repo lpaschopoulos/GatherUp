@@ -11,6 +11,9 @@ function CardsProfile({ userId, image }) {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState(null);
+//   useEffect(() => {
+//     console.log('Component mounted');
+// }, []);//FETCHING THE EVENTS DATA TWICE. WHY?
 
   useEffect(() => {
     if (userId) {

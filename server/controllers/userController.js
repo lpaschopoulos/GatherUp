@@ -46,7 +46,7 @@ const userSignup = async (req, res) => {
             const token = jwt.sign({id: user._id}, "Events");
             return res.status(200).json({token});
         } else {
-            return res.status(401).json({msg: "wrong password"});
+            return res.status(401).json({msg: "Wrong password"});
         }
     });
 };

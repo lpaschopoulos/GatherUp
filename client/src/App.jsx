@@ -18,6 +18,7 @@ import Tomorrow from "./Pages/Tomorrow/Tomorrow";
 import NextMonth from "./Pages/NextMonth/NextMonth";
 import NotFound from "./Pages/NotFound";
 import SearchResults from "./components/SearchResults/SearchResults";
+import About from "./Pages/About";
 import "./App.css"
 import OnlineEvents from "./Pages/OnlineEvents/OnlineEvents";
 import NearYou from "./Pages/NearYou/NearYou";
@@ -79,6 +80,7 @@ function App() {
             <Route path="/search" element={<SearchResults/>}/>
             <Route path="/near-you" element={<NearYou/>}/>
             <Route path="/tickets" element={<TicketForm/>}/>
+            <Route path="/about" element={<About/>}/>
 
             <Route path="*" element={<NotFound />} />
           </Routes>
