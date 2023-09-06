@@ -38,3 +38,11 @@ Backend:
 Features:
 
 1. Event Categorization: Tags can help users quickly identify events that match their interests or preferences. By allowing event organizers to add tags to their events, users can filter and search for specific types of events (e.g., music festivals, food fairs, art exhibitions) based on these tags. Tags can be a valuable feature for organizing and categorizing events, making event discovery easier for users. 
+
+
+Improvements - New Features:
+1. Make the styling the same for all the cards/events (Harmonized).
+2. The "sort" of the All events page must be something like by title (A to Z) and (Z to A), by date (newest to oldest) and (oldest to newest).
+3. Move the only in the city section to the begging and move the Discover Exiting Events to the middle.
+4. Add a review or/and comments to the events and a rating stars.(react rating).
+5. Add a share via Social Media button. For a user to share the event details to his social media.
