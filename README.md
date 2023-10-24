@@ -46,3 +46,16 @@ Improvements - New Features:
 3. Move the only in the city section to the begging and move the Discover Exiting Events to the middle.
 4. Add a review or/and comments to the events and a rating stars.(react rating).
 5. Add a share via Social Media button. For a user to share the event details to his social media.
+
+
+Here  are some screenshots:
+
+![Account](/client/public/images/GatherUpAccounScreenshot.jpg)
+
+![BuyTicket](/client/public/images/GatherUpBuyTicketScreenshot.jpg)
+
+![EventDetails](/client/public/images/GatherUpEventDetailsScreenshot.jpg)
+
+![LetsGoButton](/client/public/images/GatherUpLetsGoButtonScreenshot.jpg)
+
+![Profile](/client/public/images/GatherUpProfileScreenshot.jpg)
