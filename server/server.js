@@ -7,12 +7,12 @@ const uploadRoute = require('./router/uploadRouter');
 const userRouter = require("./router/userRouter.js");
 const eventRouter = require("./router/eventRouter.js");
 const homePageController = require("./controllers/homePageController");
+// Require and run the automatic deletion script
+require('./deleteOldEntriesScript');
+
 const app = express();
 app.use(express.json());
-
 app.use(bodyParser.json());
-
-
 
 app.use(
     cors({
